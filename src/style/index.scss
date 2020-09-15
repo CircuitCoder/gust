@@ -1,0 +1,27 @@
+@import "./consts.scss";
+@import "./fonts.scss";
+@import "./title.scss";
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  // CSS reset
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  // Default font settings
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include font-sans;
+
+  // Real styling starts here
+  background: $background;
+}
+
+code {
+  @include font-monospace;
+}

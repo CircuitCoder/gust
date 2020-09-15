@@ -1,0 +1,70 @@
+@import "./fonts.scss";
+@import "./consts.scss";
+
+.title {
+  $border-width: 30px;
+
+  @include font-serif;
+  font-weight: 100;
+  padding: 24px + $border-width;
+
+  width: 420px;
+  height: 420px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select: none;
+
+  line-height: 144px;
+  font-size: 144px;
+  
+  color: $primary;
+  position: relative;
+
+  > strong {
+    font-weight: 900;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    user-select: none;
+
+    clip-path: polygon(
+      // Outer ring
+      0 0, 0 100%, 100% 100%, 100% 0, 0 0,
+
+      // Inner ring
+      #{$border-width} #{$border-width}, calc(100% - #{$border-width}) #{$border-width}, calc(100% - #{$border-width}) calc(100% - #{$border-width}), #{$border-width} calc(100% - #{$border-width}), #{$border-width} #{$border-width},
+
+      // Return to begin
+      0 0,
+    );
+
+    $bg-tile: 60px;
+    $bg-darker: change-color($primary, $alpha: .6);
+    $bg-lighter: change-color($primary, $alpha: .2);
+
+    background: linear-gradient(
+      45deg,
+      $bg-lighter 25%,
+      $bg-darker 25%,
+      $bg-darker 50%,
+      $bg-lighter 50%,
+      $bg-lighter 75%,
+      $bg-darker 75%,
+    );
+    background-size: $bg-tile $bg-tile;
+  }
+
+  &-inner {
+    // Google font's Noto Serif has a wrong baseline setting
+    transform: translateY(12px);
+    display: inline-block;
+  }
+}
