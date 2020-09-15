@@ -1,4 +1,4 @@
 // Colors
 
 $primary: #753217;
-$background: lighten($primary, 70%);
+$background: change-color($primary, $alpha: .1);

@@ -1,6 +1,7 @@
 @import "./consts.scss";
 @import "./fonts.scss";
 @import "./title.scss";
+@import "./tile.scss";
 
 * {
   box-sizing: inherit;
@@ -24,4 +25,18 @@ body {
 
 code {
   @include font-monospace;
+}
+
+@mixin restricted-width {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+main {
+  @include restricted-width;
+}
+
+main.home {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
