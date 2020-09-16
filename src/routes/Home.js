@@ -27,7 +27,27 @@ function Home() {
       </nav>
 
       <div className="home-right">
-        { JSON.stringify(listing) }
+        {listing && listing.entries.map(e => (
+          <div class="home-tile" key={e.slug}>
+            <div class="home-tile-meta">
+              <div class="home-tile-meta-sharp">#</div>
+              <div class="home-tile-meta-slug">{e.slug}</div>
+
+              <div class="home-tile-meta-author">
+                { e.author }
+              </div>
+            </div>
+
+            <div class="home-tile-inner">
+              <div class="home-tile-inner-summary">
+                <div class="home-tile-inner-summary-text">{ e.desc }</div>
+              </div>
+              <div class="home-tile-inner-mtime">
+                <div class="home-tile-inner-mtime-text">{ e.last_modified }</div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </main>
   );

@@ -1,0 +1,138 @@
+.home {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  &-right {
+    flex: 1;
+    margin-left: 60px;
+  }
+
+  &-tile {
+    margin-bottom: 40px;
+
+    &-meta {
+      background: $background;
+      line-height: 60px;
+      font-size: 32px;
+
+      @include font-monospace;
+      text-transform: uppercase;
+
+      display: flex;
+
+      &-sharp {
+        width: 60px;
+        font-weight: 900;
+        background: $background;
+
+        color: change-color($primary, $alpha: .5);
+
+        font-size: 32px;
+        text-align: center;
+        font-style: italic;
+      }
+
+      &-slug {
+        padding-left: 20px;
+        font-weight: 900;
+        color: rgba(0,0,0,.87);
+
+        font-style: italic;
+        flex: 1;
+      }
+
+      &-author {
+        background: $background;
+        
+        @include font-sans;
+        color: rgba(0,0,0,.3);
+        padding: 0 20px 0 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        width: 105px; // This is fixed so we can do something fancy
+
+        clip-path: polygon(
+          20px 0%, 100% 0, 100% 100%, 0 100%
+        );
+
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: 800;
+
+        &:after {
+          margin-top: 2px;
+          @include font-monospace;
+          content: 'AUTHORED';
+          line-height: 12px;
+          font-size: 12px;
+          font-weight: 400;
+          font-style: italic;
+        }
+      }
+    }
+
+    &-inner {
+      background: rgba(0,0,0,.05);
+      border-left: rgba(0,0,0,.1) 5px solid;
+      padding: 20px 25px 25px 25px;
+
+      @mixin inner-section-header {
+        @include font-monospace;
+        display: block;
+        font-size: 14px;
+        color: rgba(0,0,0,.39);
+      }
+
+      @mixin firsty-bold {
+        &-text::first-letter {
+          font-weight: 900;
+        }
+      }
+
+      &-summary {
+        &:before {
+          @include inner-section-header;
+          content: '::SUMMARY >>';
+        }
+
+        @include font-serif;
+        @include firsty-bold;
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+
+      &-mtime {
+        &:before {
+          @include inner-section-header;
+          content: '::MTIME >>';
+        }
+
+        @include firsty-bold;
+        @include font-monospace;
+        color: $primary;
+      }
+
+      position: relative;
+
+      &:after {
+        content: '';
+        user-select: none;
+        background: rgba(255,255,255,.2);
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        clip-path: polygon(
+          calc(100% - 105px) 0, 100% 0,
+          100% 900px, calc(100% - #{105px + 300px}) 900px
+        );
+      }
+    }
+  }
+}

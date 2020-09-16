@@ -34,9 +34,7 @@ code {
 
 main {
   @include restricted-width;
+  display: flex;
 }
 
-main.home {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
+@import './home.scss';
