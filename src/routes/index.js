@@ -16,7 +16,7 @@ const Root = () => <>
     </div>
   </nav>
 
-  <Route path="/" component={Home} />
+  <Route path="/" exact component={Home} />
 </>;
 
 export default Root;

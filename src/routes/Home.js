@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchList } from '../store/actions';
+import { Link } from 'react-router-dom'
 
 function Home() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function Home() {
 
       <div className="home-right">
         {listing && listing.entries.map(e => (
-          <div class="home-tile" key={e.slug}>
+          <Link to={`/entry/${e.slug}`} class="home-tile" key={e.slug}>
             <div class="home-tile-meta">
               <div class="home-tile-meta-sharp">#</div>
               <div class="home-tile-meta-slug">{e.slug}</div>
@@ -36,7 +37,7 @@ function Home() {
                 <div class="home-tile-inner-mtime-text">{ e.last_modified }</div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </main>
