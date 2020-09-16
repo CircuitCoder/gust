@@ -1,3 +1,5 @@
+$hover-shift: 40px;
+
 .home {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -9,6 +11,9 @@
 
   &-tile {
     margin-bottom: 40px;
+    user-select: none;
+
+    cursor: pointer;
 
     &-meta {
       background: $background;
@@ -52,11 +57,13 @@
         flex-direction: column;
         align-items: flex-end;
         justify-content: center;
-        width: 105px; // This is fixed so we can do something fancy
+        width: 105px + $hover-shift; // This is fixed so we can do something fancy
 
         clip-path: polygon(
-          20px 0%, 100% 0, 100% 100%, 0 100%
+          #{20px + $hover-shift} 0%, 100% 0, 100% 100%, $hover-shift 100%
         );
+
+        transition: clip-path .2s ease;
 
         font-size: 16px;
         line-height: 16px;
@@ -116,23 +123,50 @@
       }
 
       position: relative;
+      overflow: hidden;
 
       &:after {
-        content: '';
+        content: 'VIEW DETAIL';
         user-select: none;
-        background: $accent;
-        opacity: .05;
+        background: change-color($accent, $alpha: .1);
 
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
-        right: 0;
+        right: -$hover-shift;
 
         clip-path: polygon(
-          calc(100% - 105px) 0, 100% 0,
-          100% 900px, calc(100% - #{105px + 300px}) 900px
+          calc(100% - #{105px + $hover-shift}) 0, 100% 0,
+          100% 900px, calc(100% - #{105px + 300px + $hover-shift}) 900px
         );
+
+        transition: transform .2s ease, opacity .2s ease;
+        transform: none;
+        opacity: 0.5;
+
+        @include font-monospace;
+        writing-mode: vertical-rl;
+        text-orientation: sideways;
+        text-align: center;
+        line-height: $hover-shift;
+
+        font-weight: 900;
+        color: change-color($accent, $alpha: .38);
+      }
+    }
+
+    $root: &;
+    &:hover {
+      #{$root}-meta-author {
+        clip-path: polygon(
+          20px 0%, 100% 0, 100% 100%, 0 100%
+        );
+      }
+
+      #{$root}-inner:after {
+        transform: translateX(-$hover-shift);
+        opacity: 1;
       }
     }
   }
