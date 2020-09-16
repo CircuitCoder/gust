@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchList } from '../store/actions';
 
 function Home() {
+  const dispatch = useDispatch();
+
+  // Load listing on startup
+  useEffect(() => {
+    dispatch(fetchList());
+  }, [dispatch]);
+
+  const listing = useSelector(({ listing }) => listing);
+
   return (
     <main className="home">
       <nav className="home-left">
@@ -16,6 +27,7 @@ function Home() {
       </nav>
 
       <div className="home-right">
+        { JSON.stringify(listing) }
       </div>
     </main>
   );
