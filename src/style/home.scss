@@ -3,10 +3,17 @@ $hover-shift: 40px;
 .home {
   padding-top: 40px;
   padding-bottom: 40px;
+  position: relative;
+  pointer-events: none;
+
+  &-left {
+    width: 470px; // TODO: auto calc
+  }
 
   &-right {
     flex: 1;
     margin-left: 60px;
+    pointer-events: all;
   }
 
   &-tile {

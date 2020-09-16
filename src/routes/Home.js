@@ -14,17 +14,7 @@ function Home() {
 
   return (
     <main className="home">
-      <nav className="home-left">
-        <div className="tile">
-          <div className="title">
-            <div className="title-inner">
-              <strong>风</strong>的<br/>重构
-            </div>
-          </div>
-
-          <div className="tile-meta"><strong>logo</strong>(primary) @ /</div>
-        </div>
-      </nav>
+      <div className="home-left"></div>
 
       <div className="home-right">
         {listing && listing.entries.map(e => (

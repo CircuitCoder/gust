@@ -2,6 +2,7 @@
 @import "./fonts.scss";
 @import "./title.scss";
 @import "./tile.scss";
+@import "./nav.scss";
 
 * {
   box-sizing: inherit;
@@ -10,7 +11,7 @@
 body {
   // CSS reset
   margin: 0;
-  padding: 0;
+  padding: 0 40px;
   box-sizing: border-box;
 
   // Default font settings
@@ -28,7 +29,7 @@ code {
 }
 
 @mixin restricted-width {
-  max-width: 1240px;
+  max-width: $extended-width;
   margin: 0 auto;
 }
 
