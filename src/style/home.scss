@@ -35,7 +35,7 @@
       &-slug {
         padding-left: 20px;
         font-weight: 900;
-        color: rgba(0,0,0,.87);
+        color: $primary;
 
         font-style: italic;
         flex: 1;
@@ -83,7 +83,7 @@
         @include font-monospace;
         display: block;
         font-size: 14px;
-        color: rgba(0,0,0,.39);
+        color: rgba(0,0,0,.38);
       }
 
       @mixin firsty-bold {
@@ -112,7 +112,7 @@
 
         @include firsty-bold;
         @include font-monospace;
-        color: $primary;
+        color: $accent;
       }
 
       position: relative;
@@ -120,7 +120,8 @@
       &:after {
         content: '';
         user-select: none;
-        background: rgba(255,255,255,.2);
+        background: $accent;
+        opacity: .05;
 
         position: absolute;
         top: 0;
