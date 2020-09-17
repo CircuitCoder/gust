@@ -1,7 +1,113 @@
+@import "./fonts.scss";
 @import "./consts.scss";
+
+$main-transition-length: .2s;
+$shrink-transition-length: .15s;
+$shift-delay: .1s;
+
+@function square-border($outer, $width, $offset-x: 0, $offset-y: 0) {
+  $neg-outer: calc(100% - #{$outer});
+  $inner: $outer+$width*1;
+  $neg-inner: calc(100% - #{$inner});
+
+  @return polygon(
+      // Outer ring
+      $outer $outer, $outer $neg-outer, $neg-outer $neg-outer, $neg-outer $outer, $outer $outer,
+
+      // Inner ring, with the inversed vertices ordering
+      $inner $inner, $neg-inner $inner, $neg-inner $neg-inner, $inner $neg-inner, $inner $inner,
+
+      // Return to begin
+      $outer $outer,
+  );
+}
 
 nav {
   position: fixed;
   top: 40px;
   left: calc(50vw - #{$extended-width/2})
+}
+
+$title-border-width: 40px;
+
+.title {
+  @include font-serif;
+  font-weight: 100;
+  padding: 24px + $title-border-width;
+
+  width: 420px;
+  height: 420px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select: none;
+
+  line-height: 144px;
+  font-size: 144px;
+  
+  color: $primary;
+  position: relative;
+
+  > strong {
+    font-weight: 900;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    user-select: none;
+
+    clip-path: square-border(0px, $title-border-width);
+    transform-origin: 120px 120px;
+    transition-property: transform, clip-path, -wekkit-clip-path;
+    transition-timing-function: ease, ease, ease;
+    transition-duration: $main-transition-length, $main-transition-length, $main-transition-length;
+    transition-delay: 0s, $shift-delay, $shift-delay;
+
+    $bg-tile: 60px;
+    $bg-darker: change-color($primary, $alpha: .6);
+    $bg-lighter: change-color($primary, $alpha: .2);
+
+    background: linear-gradient(
+      45deg,
+      $bg-lighter 25%,
+      $bg-darker 25%,
+      $bg-darker 50%,
+      $bg-lighter 50%,
+      $bg-lighter 75%,
+      $bg-darker 75%,
+    );
+    background-size: $bg-tile $bg-tile;
+  }
+
+  &-inner {
+    // Google font's Noto Serif has a wrong baseline setting
+    transform: translateY(12px);
+    display: inline-block;
+
+    transition: transform $shrink-transition-length ease, opacity $shrink-transition-length ease;
+    transition-delay: $main-transition-length + $shift-delay - $shrink-transition-length;
+  }
+}
+
+nav.mini {
+  .title {
+    &-inner {
+      transform: scale(.4) translateY(12px);
+      opacity: 0;
+      transition-delay: 0s;
+    }
+
+    &::after {
+      $outer: (420px - 120px) / 2;
+      clip-path: square-border($outer, $title-border-width);
+      transform: translate(-$outer, -$outer);
+      transition-delay: $shift-delay, 0s, 0s;
+    }
+  }
 }

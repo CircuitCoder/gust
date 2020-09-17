@@ -19,22 +19,22 @@ function Home() {
 
       <div className="home-right">
         {listing && listing.entries.map(e => (
-          <Link to={`/entry/${e.slug}`} class="home-tile" key={e.slug}>
-            <div class="home-tile-meta">
-              <div class="home-tile-meta-sharp">#</div>
-              <div class="home-tile-meta-slug">{e.slug}</div>
+          <Link to={`/entry/${e.slug}`} className="home-tile" key={e.slug}>
+            <div className="home-tile-meta">
+              <div className="home-tile-meta-sharp">#</div>
+              <div className="home-tile-meta-slug">{e.slug}</div>
 
-              <div class="home-tile-meta-author">
+              <div className="home-tile-meta-author">
                 { e.author }
               </div>
             </div>
 
-            <div class="home-tile-inner">
-              <div class="home-tile-inner-summary">
-                <div class="home-tile-inner-summary-text">{ e.desc }</div>
+            <div className="home-tile-inner">
+              <div className="home-tile-inner-summary">
+                <div className="home-tile-inner-summary-text">{ e.desc }</div>
               </div>
-              <div class="home-tile-inner-mtime">
-                <div class="home-tile-inner-mtime-text">{ e.last_modified }</div>
+              <div className="home-tile-inner-mtime">
+                <div className="home-tile-inner-mtime-text">{ e.last_modified }</div>
               </div>
             </div>
           </Link>
