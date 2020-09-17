@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   // CSS reset
   margin: 0;
@@ -37,6 +41,18 @@ code {
 @mixin restricted-width {
   max-width: $extended-width;
   margin: 0 auto;
+}
+
+.main-wrapper {
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+
+  &-off {
+    pointer-events: none;
+  }
 }
 
 main {

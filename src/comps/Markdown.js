@@ -20,6 +20,7 @@ const processor = unified()
   .freeze();
 
 const Markdown = ({ source }) => {
+  if(source === null) return null;
   return processor.processSync(source).result;
 };
 

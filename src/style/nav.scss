@@ -27,6 +27,7 @@ nav {
   position: fixed;
   top: 40px;
   left: calc(50vw - #{$extended-width/2});
+  z-index: 100;
 }
 
 $title-border-width: 40px;

@@ -9,7 +9,7 @@ const Root = () => (
   <>
     <Nav />
     <Route path="/" exact component={Home} />
-    <Route path="/entry/:slug" exact component={Entry} />
+    <Entry />
   </>
 );
 

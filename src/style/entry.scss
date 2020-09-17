@@ -38,3 +38,27 @@ main.entry > div {
     border-left: $accent 20px solid;
   }
 }
+
+.entry-fade {
+  &-enter {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  &-enter-active {
+    transition: opacity .5s ease, transform 1s ease;
+    opacity: 1;
+    transform: none;
+  }
+
+  &-exit {
+    opacity: 1;
+    transform: none;
+  }
+
+  &-exit-active {
+    transition: opacity .5s ease, transform 1s ease;
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}

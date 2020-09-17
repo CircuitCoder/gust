@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchList } from '../store/actions';
 import { Link } from 'react-router-dom';
 import { useTitle } from '../utils/hooks';
+import Main from '../comps/Main';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Home() {
   const dispatch = useDispatch();
@@ -27,8 +29,13 @@ function Home() {
   }
   */
 
+  const match = useRouteMatch({
+    path: '/',
+    exact: true,
+  });
+
   return (
-    <main className="home">
+    <Main className="home" off={!match}>
       <div className="home-left"></div>
 
       <div className="home-right">
@@ -55,7 +62,7 @@ function Home() {
             </Link>
           ))}
       </div>
-    </main>
+    </Main>
   );
 }
 
