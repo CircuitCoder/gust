@@ -1,16 +1,21 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const Nav = () => {
   const location = useLocation();
+  const history = useHistory();
   const path = location.pathname;
 
-  const mini = path !== '/';
+  const remote = path !== '/';
+
+  const home = useCallback(() => {
+    if(remote) history.push('/');
+  }, [history, remote])
 
   return (
-    <nav className={mini ? 'mini' : 'mini'}>
+    <nav className={remote ? 'mini' : ''}>
       <div className="tile">
-        <div className="title">
+        <div className="title" onClick={home}>
           <div className="title-inner">
             <strong>风</strong>的<br/>重构
           </div>

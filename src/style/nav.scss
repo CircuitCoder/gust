@@ -35,6 +35,8 @@ $title-border-width: 40px;
   font-weight: 100;
   padding: 24px + $title-border-width;
 
+  pointer-events: none;
+
   width: 420px;
   height: 420px;
   display: inline-flex;
@@ -83,6 +85,8 @@ $title-border-width: 40px;
       $bg-darker 75%,
     );
     background-size: $bg-tile $bg-tile;
+
+    pointer-events: all;
   }
 
   &-inner {
@@ -108,6 +112,8 @@ nav.mini {
       clip-path: square-border($outer, $title-border-width);
       transform: translate(-$outer, -$outer);
       transition-delay: $shift-delay, 0s, 0s;
+
+      cursor: pointer;
     }
   }
 }
