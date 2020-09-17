@@ -1,5 +1,5 @@
 import { loadList } from './simple';
-import { retrieve } from '../util';
+import { retrieve } from '../utils/networking';
 
 export const fetchList = () => async dispatch => {
   const listing = await retrieve('listing.json');

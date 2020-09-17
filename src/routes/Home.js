@@ -2,9 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchList } from '../store/actions';
 import { Link } from 'react-router-dom'
+import { useTitle } from '../utils/hooks';
 
 function Home() {
   const dispatch = useDispatch();
+
+  // Set title
+  useTitle('🎐');
 
   // Load listing on startup
   useEffect(() => {
