@@ -1,15 +1,16 @@
-@import "./fonts.scss";
-@import "./consts.scss";
+@import './fonts.scss';
+@import './consts.scss';
 
-$main-transition-length: .5s;
-$shrink-transition-length: .3s;
-$shift-delay: .2s;
+$main-transition-length: 0.5s;
+$shrink-transition-length: 0.3s;
+$shift-delay: 0.2s;
 
 @function square-border($outer, $width, $offset-x: 0, $offset-y: 0) {
   $neg-outer: calc(100% - #{$outer});
-  $inner: $outer+$width*1;
+  $inner: $outer + $width;
   $neg-inner: calc(100% - #{$inner});
 
+  // prettier-ignore
   @return polygon(
       // Outer ring
       $outer $outer, $outer $neg-outer, $neg-outer $neg-outer, $neg-outer $outer, $outer $outer,
@@ -25,7 +26,7 @@ $shift-delay: .2s;
 nav {
   position: fixed;
   top: 40px;
-  left: calc(50vw - #{$extended-width/2})
+  left: calc(50vw - #{$extended-width/2});
 }
 
 $title-border-width: 40px;
@@ -47,7 +48,7 @@ $title-border-width: 40px;
 
   line-height: 144px;
   font-size: 144px;
-  
+
   color: $primary;
   position: relative;
 
@@ -69,8 +70,8 @@ $title-border-width: 40px;
     transition-delay: $shift-delay;
 
     $bg-tile: 60px;
-    $bg-darker: change-color($primary, $alpha: .6);
-    $bg-lighter: change-color($primary, $alpha: .2);
+    $bg-darker: change-color($primary, $alpha: 0.6);
+    $bg-lighter: change-color($primary, $alpha: 0.2);
 
     background: linear-gradient(
       45deg,
@@ -79,7 +80,7 @@ $title-border-width: 40px;
       $bg-darker 50%,
       $bg-lighter 50%,
       $bg-lighter 75%,
-      $bg-darker 75%,
+      $bg-darker 75%
     );
     background-size: $bg-tile $bg-tile;
 
@@ -91,15 +92,17 @@ $title-border-width: 40px;
     transform: translateY(12px);
     display: inline-block;
 
-    transition: transform $shrink-transition-length ease, opacity $shrink-transition-length ease;
-    transition-delay: $main-transition-length + $shift-delay - $shrink-transition-length;
+    transition: transform $shrink-transition-length ease,
+      opacity $shrink-transition-length ease;
+    transition-delay: $main-transition-length + $shift-delay -
+      $shrink-transition-length;
   }
 }
 
 nav.mini {
   .title {
     &-inner {
-      transform: scale(.4) translateY(12px);
+      transform: scale(0.4) translateY(12px);
       opacity: 0;
       transition-delay: 0s;
     }
@@ -157,7 +160,7 @@ nav.mini {
 
       font-weight: 300;
 
-      color: rgba(0,0,0, .38);
+      color: rgba(0, 0, 0, 0.38);
 
       user-select: none;
 
@@ -165,11 +168,13 @@ nav.mini {
         font-weight: 700;
       }
 
-      transition: transform $main-transition-length ease, opacity $main-transition-length ease;
+      transition: transform $main-transition-length ease,
+        opacity $main-transition-length ease;
       transition-delay: $shift-delay;
     }
 
-    transition: clip-path $main-transition-length ease, transform $main-transition-length ease;
+    transition: clip-path $main-transition-length ease,
+      transform $main-transition-length ease;
     transition-delay: $shift-delay;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
@@ -193,10 +198,7 @@ nav.mini {
       }
 
       clip-path: polygon(0 0, 100% 0, 100% 120px, 0 120px);
-      transform: translate(
-        -(420px - 120px)/2,
-        (420px - 120px)/2,
-      );
+      transform: translate(-(420px - 120px)/2, (420px - 120px)/2);
       transition-delay: 0s;
     }
 

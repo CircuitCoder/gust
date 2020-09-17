@@ -9,15 +9,16 @@ const Nav = () => {
   const remote = path !== '/';
 
   const home = useCallback(() => {
-    if(remote) history.push('/');
-  }, [history, remote])
+    if (remote) history.push('/');
+  }, [history, remote]);
 
   return (
     <nav className={remote ? 'mini' : ''}>
       <div className="title-tile">
         <div className="title" onClick={home}>
           <div className="title-inner">
-            <strong>风</strong>的<br/>重构
+            <strong>风</strong>的<br />
+            重构
           </div>
         </div>
 
@@ -29,6 +30,6 @@ const Nav = () => {
       </div>
     </nav>
   );
-}
+};
 
 export default Nav;

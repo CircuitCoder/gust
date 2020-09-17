@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 
 const root = combineReducers(reducers);
 
-export default createStore(root, compose(
-  applyMiddleware(thunk),
-  applyMiddleware(createLogger()),
-));
+export default createStore(
+  root,
+  compose(applyMiddleware(thunk), applyMiddleware(createLogger())),
+);

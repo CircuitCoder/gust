@@ -1,1 +1,1 @@
-export const DATA_PATH = '/gust_generated'
+export const DATA_PATH = '/gust_generated';

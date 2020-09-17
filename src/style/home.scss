@@ -38,7 +38,7 @@ $hover-shift: 40px;
         font-weight: 900;
         background: $background;
 
-        color: change-color($primary, $alpha: .5);
+        color: change-color($primary, $alpha: 0.5);
 
         font-size: 32px;
         text-align: center;
@@ -56,9 +56,9 @@ $hover-shift: 40px;
 
       &-author {
         background: $background;
-        
+
         @include font-sans;
-        color: rgba(0,0,0,.3);
+        color: rgba(0, 0, 0, 0.3);
         padding: 0 20px 0 0;
 
         display: flex;
@@ -68,10 +68,13 @@ $hover-shift: 40px;
         width: 105px + $hover-shift; // This is fixed so we can do something fancy
 
         clip-path: polygon(
-          #{20px + $hover-shift} 0%, 100% 0, 100% 100%, $hover-shift 100%
+          #{20px + $hover-shift} 0%,
+          100% 0,
+          100% 100%,
+          $hover-shift 100%
         );
 
-        transition: clip-path .2s ease;
+        transition: clip-path 0.2s ease;
 
         font-size: 16px;
         line-height: 16px;
@@ -90,15 +93,15 @@ $hover-shift: 40px;
     }
 
     &-inner {
-      background: rgba(0,0,0,.05);
-      border-left: rgba(0,0,0,.1) 5px solid;
+      background: rgba(0, 0, 0, 0.05);
+      border-left: rgba(0, 0, 0, 0.1) 5px solid;
       padding: 20px 25px 25px 25px;
 
       @mixin inner-section-header {
         @include font-monospace;
         display: block;
         font-size: 14px;
-        color: rgba(0,0,0,.38);
+        color: rgba(0, 0, 0, 0.38);
       }
 
       @mixin firsty-bold {
@@ -136,7 +139,7 @@ $hover-shift: 40px;
       &:after {
         content: 'VIEW DETAIL';
         user-select: none;
-        background: change-color($accent, $alpha: .1);
+        background: change-color($accent, $alpha: 0.1);
 
         position: absolute;
         top: 0;
@@ -145,11 +148,13 @@ $hover-shift: 40px;
         right: -$hover-shift;
 
         clip-path: polygon(
-          calc(100% - #{105px + $hover-shift}) 0, 100% 0,
-          100% 900px, calc(100% - #{105px + 300px + $hover-shift}) 900px
+          calc(100% - #{105px + $hover-shift}) 0,
+          100% 0,
+          100% 900px,
+          calc(100% - #{105px + 300px + $hover-shift}) 900px
         );
 
-        transition: transform .2s ease, opacity .2s ease;
+        transition: transform 0.2s ease, opacity 0.2s ease;
         transform: none;
         opacity: 0.5;
 
@@ -160,16 +165,14 @@ $hover-shift: 40px;
         line-height: $hover-shift;
 
         font-weight: 900;
-        color: change-color($accent, $alpha: .38);
+        color: change-color($accent, $alpha: 0.38);
       }
     }
 
     $root: &;
     &:hover {
       #{$root}-meta-author {
-        clip-path: polygon(
-          20px 0%, 100% 0, 100% 100%, 0 100%
-        );
+        clip-path: polygon(20px 0%, 100% 0, 100% 100%, 0 100%);
       }
 
       #{$root}-inner:after {
