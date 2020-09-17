@@ -5,8 +5,41 @@ import { Link } from 'react-router-dom';
 import { useTitle } from '../utils/hooks';
 import Main from '../comps/Main';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Flipper, Flipped } from 'react-flip-toolkit';
+import { CSSTransition } from 'react-transition-group';
 
-function Home() {
+const ListingEntry = ({ entry, current, ...rest }) => (
+  <Flipped flipId={entry.slug} {...rest} translate={true}>
+    <CSSTransition
+      classNames="listing-fade"
+      appear={true}
+      in={current === null || entry.slug === current}
+      timeout={1000}
+    >
+      <Link to={`/entry/${entry.slug}`} className="home-tile">
+        <div className="home-tile-meta">
+          <div className="home-tile-meta-sharp">#</div>
+          <div className="home-tile-meta-slug">{entry.slug}</div>
+
+          <div className="home-tile-meta-author">{entry.author}</div>
+        </div>
+
+        <div className="home-tile-inner">
+          <div className="home-tile-inner-summary">
+            <div className="home-tile-inner-summary-text">{entry.desc}</div>
+          </div>
+          <div className="home-tile-inner-mtime">
+            <div className="home-tile-inner-mtime-text">
+              {entry.last_modified}
+            </div>
+          </div>
+        </div>
+      </Link>
+    </CSSTransition>
+  </Flipped>
+);
+
+const Home = () => {
   const dispatch = useDispatch();
 
   // Set title
@@ -29,41 +62,32 @@ function Home() {
   }
   */
 
-  const match = useRouteMatch({
+  const homeMatch = useRouteMatch({
     path: '/',
     exact: true,
   });
 
+  const entryMatch = useRouteMatch({
+    path: '/entry/:slug',
+    exact: true,
+  });
+
+  const slug = entryMatch?.params?.slug ?? null;
+
   return (
-    <Main className="home" off={!match}>
+    <Main className="home" off={homeMatch}>
       <div className="home-left"></div>
 
       <div className="home-right">
-        {listing &&
-          listing.entries.map(e => (
-            <Link to={`/entry/${e.slug}`} className="home-tile" key={e.slug}>
-              <div className="home-tile-meta">
-                <div className="home-tile-meta-sharp">#</div>
-                <div className="home-tile-meta-slug">{e.slug}</div>
-
-                <div className="home-tile-meta-author">{e.author}</div>
-              </div>
-
-              <div className="home-tile-inner">
-                <div className="home-tile-inner-summary">
-                  <div className="home-tile-inner-summary-text">{e.desc}</div>
-                </div>
-                <div className="home-tile-inner-mtime">
-                  <div className="home-tile-inner-mtime-text">
-                    {e.last_modified}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+        <Flipper flipKey={slug}>
+          {listing &&
+            listing.entries.map(e => (
+              <ListingEntry key={e.slug} current={slug} entry={e} />
+            ))}
+        </Flipper>
       </div>
     </Main>
   );
-}
+};
 
 export default Home;

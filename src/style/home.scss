@@ -21,6 +21,9 @@ $hover-shift: 40px;
     margin-bottom: 40px;
     user-select: none;
 
+    // By default, before enter
+    opacity: 0;
+
     cursor: pointer;
 
     &-meta {
@@ -180,5 +183,48 @@ $hover-shift: 40px;
         opacity: 1;
       }
     }
+  }
+}
+
+.listing-fade {
+  &-enter {
+    opacity: 0;
+  }
+
+  &-enter-active {
+    transition: opacity .5s ease;
+    opacity: 1;
+  }
+
+  &-enter-done {
+    opacity: 1;
+  }
+
+  &-appear {
+    opacity: 0;
+  }
+
+  &-appear-active {
+    transition: opacity .5s ease;
+    opacity: 1;
+  }
+
+  &-appear-done {
+    opacity: 1;
+  }
+
+  &-exit {
+    opacity: 1;
+  }
+
+  &-exit-active {
+    transition: opacity .5s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &-exit-done {
+    opacity: 0;
+    pointer-events: none;
   }
 }
