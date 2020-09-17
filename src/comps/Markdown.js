@@ -12,6 +12,10 @@ const processor = unified()
   .use(remark2rehype)
   .use(rehype2react, {
     createElement: React.createElement,
+    Fragment: ({ children }) => <div className="md">{children}</div>,
+    components: {
+      h1: ({ children }) => <h1>{ children }</h1> // TODO: hold an ref?
+    },
   })
   .freeze();
 

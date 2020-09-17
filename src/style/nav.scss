@@ -3,7 +3,7 @@
 
 $main-transition-length: 0.5s;
 $shrink-transition-length: 0.3s;
-$shift-delay: 0.2s;
+$shift-delay: 0.1s;
 
 @function square-border($outer, $width, $offset-x: 0, $offset-y: 0) {
   $neg-outer: calc(100% - #{$outer});
@@ -100,6 +100,8 @@ $title-border-width: 40px;
 }
 
 nav.mini {
+  pointer-events: none;
+
   .title {
     &-inner {
       transform: scale(0.4) translateY(12px);
@@ -121,6 +123,7 @@ nav.mini {
 .title-tile {
   position: relative;
   display: inline-flex;
+  pointer-events: none;
 
   &-meta {
     position: relative;

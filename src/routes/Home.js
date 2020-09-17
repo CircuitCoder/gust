@@ -17,6 +17,16 @@ function Home() {
 
   const listing = useSelector(({ listing }) => listing);
 
+  // For debugging
+  /*
+  if (listing && listing.entries) {
+    listing.entries = [
+      ...listing.entries,
+      ...listing.entries,
+    ];
+  }
+  */
+
   return (
     <main className="home">
       <div className="home-left"></div>

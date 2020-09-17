@@ -1,0 +1,40 @@
+$icon-spacing: 120px + 10px + 40px + 40px;
+$top-spacing: 40px + 120px + 40px;
+$col-spacing: 200px;
+
+$col-width: 550px;
+
+$overscroll: calc(50vw - #{620px - $icon-spacing});
+
+main.entry {
+  margin-top: $top-spacing;
+  padding-left: $icon-spacing;
+  padding-right: $icon-spacing;
+
+  height: calc(100vh - #{80px+$top-spacing});
+
+  @include font-serif;
+}
+
+main.entry > div {
+  // transform: rotate(-90deg);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: $col-width + $col-spacing;
+  margin-right: -$col-spacing;
+
+  > * {
+    margin-right: $col-spacing;
+    width: $col-width;
+  }
+
+  &::after {
+    content: "";
+    position: static;
+    width: $overscroll;
+    height: 20px;
+    margin-left: $col-width - 20px;
+    border-left: $accent 20px solid;
+  }
+}

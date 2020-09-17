@@ -1,0 +1,49 @@
+@import "./consts.scss";
+
+.md {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+
+  ul {
+    list-style-type: "ฅ ";
+    li {
+      padding-left: 10px;
+    }
+
+    ::marker {
+      font-weight: 900;
+      color: change-color($accent, $alpha: .7);
+    }
+  }
+
+  ol {
+    list-style-type: hiragana;
+    li {
+      padding-left: 10px;
+    }
+    ::marker {
+      @include font-sans;
+      font-size: .7em;
+      font-weight: 900;
+      color: change-color($primary, $alpha: .7);
+    }
+  }
+
+  @for $i from 1 to 7 {
+    h#{$i} {
+      font-weight: 900;
+      break-after: avoid;
+      &::first-letter {
+        color: $primary;
+        font-size: 1.4em;
+      }
+    }
+  }
+
+  pre {
+    background: $background;
+    padding: 20px;
+    border-top: $primary 5px solid;
+  }
+}

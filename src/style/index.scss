@@ -1,6 +1,7 @@
 @import './consts.scss';
 @import './fonts.scss';
 @import './nav.scss';
+@import './markdown.scss';
 
 * {
   box-sizing: inherit;
@@ -29,6 +30,8 @@ body {
 
 code {
   @include font-monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 @mixin restricted-width {
@@ -42,3 +45,4 @@ main {
 }
 
 @import './home.scss';
+@import './entry.scss';
