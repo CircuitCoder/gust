@@ -46,8 +46,8 @@ code {
 .main-wrapper {
   left: 0;
   top: 0;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
+  right: 0;
   position: absolute;
 
   &-off {
@@ -58,6 +58,24 @@ code {
 main {
   @include restricted-width;
   display: flex;
+}
+
+// Scrollbar
+
+html {
+  overflow: scroll;
+
+  scrollbar-width: thin;
+  scrollbar-color: change-color($primary, $alpha: .38) transparent;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: change-color($primary, $alpha: .38);
+  }
 }
 
 @import './home.scss';
