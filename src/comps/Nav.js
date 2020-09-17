@@ -14,14 +14,18 @@ const Nav = () => {
 
   return (
     <nav className={remote ? 'mini' : ''}>
-      <div className="tile">
+      <div className="title-tile">
         <div className="title" onClick={home}>
           <div className="title-inner">
             <strong>风</strong>的<br/>重构
           </div>
         </div>
 
-        <div className="tile-meta"><strong>logo</strong>(primary) @ /</div>
+        <div className="title-tile-meta">
+          <div className="title-tile-meta-inner">
+            <strong>logo</strong>(primary) @ /
+          </div>
+        </div>
       </div>
     </nav>
   );

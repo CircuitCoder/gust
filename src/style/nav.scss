@@ -65,11 +65,8 @@ $title-border-width: 40px;
     user-select: none;
 
     clip-path: square-border(0px, $title-border-width);
-    transform-origin: 120px 120px;
-    transition-property: transform, clip-path, -wekkit-clip-path;
-    transition-timing-function: ease, ease, ease;
-    transition-duration: $main-transition-length, $main-transition-length, $main-transition-length;
-    transition-delay: 0s, $shift-delay, $shift-delay;
+    transition: clip-path $main-transition-length ease;
+    transition-delay: $shift-delay;
 
     $bg-tile: 60px;
     $bg-darker: change-color($primary, $alpha: .6);
@@ -110,10 +107,100 @@ nav.mini {
     &::after {
       $outer: (420px - 120px) / 2;
       clip-path: square-border($outer, $title-border-width);
-      transform: translate(-$outer, -$outer);
-      transition-delay: $shift-delay, 0s, 0s;
+      transition-delay: 0s;
 
       cursor: pointer;
     }
+  }
+}
+
+// Aux tile
+.title-tile {
+  position: relative;
+  display: inline-flex;
+
+  &-meta {
+    position: relative;
+    overflow: hidden;
+
+    margin-left: 10px;
+    background: grayscale($background);
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateY(-100%) translateY(5px);
+      background: grayscale($background);
+      transition: transform $main-transition-length ease;
+      transition-delay: $shift-delay;
+    }
+
+    &-inner {
+      padding-top: 10px + 5px;
+      width: 40px;
+      line-height: 40px;
+      font-size: 18px;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+
+      @include font-monospace;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: sideways;
+
+      font-weight: 300;
+
+      color: rgba(0,0,0, .38);
+
+      user-select: none;
+
+      strong {
+        font-weight: 700;
+      }
+
+      transition: transform $main-transition-length ease, opacity $main-transition-length ease;
+      transition-delay: $shift-delay;
+    }
+
+    transition: clip-path .2s ease, transform .2s ease;
+    transition-delay: $shift-delay;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  transition: transform .2s ease;
+}
+
+nav.mini {
+  $outer-diff: (420px - 120px) / 2;
+  .title-tile {
+    &-meta {
+      &::before {
+        transform: translateY(-100%) translateY(120px);
+        transition-delay: 0s;
+      }
+
+      &-inner {
+        transform: translateY(115px); // 115 = 120 - 5
+        opacity: 0;
+        transition-delay: 0s;
+      }
+
+      clip-path: polygon(0 0, 100% 0, 100% 120px, 0 120px);
+      transform: translate(
+        -(420px - 120px)/2,
+        (420px - 120px)/2,
+      );
+      transition-delay: 0s;
+    }
+
+    transition-delay: $shift-delay;
+    transform: translate(-$outer-diff, -$outer-diff);
   }
 }
