@@ -12,10 +12,10 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
       var(--right-bias)
 
       /* Early transition */
-      + var(--home-pin-early)
+      - var(--home-pin-early)
 
       /* Late transition */
-      + var(--home-pin-late)
+      - var(--home-pin-late)
     )
   );
 }
