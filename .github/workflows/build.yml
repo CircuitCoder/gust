@@ -1,0 +1,50 @@
+on: push
+
+jobs:
+  build:
+    name: Pre-process and build the website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+          submodules: true
+      - name: Toolchain - rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Toolchain - nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - name: Preprocessor - dependency + build
+        run: cargo build --release --all-features
+        working-directory: gust-gen
+      - name: Data - build
+        run: gust-gen/target/release/gust-gen ./gust-data/entries ./public/gust_generated
+      - name: Frontend - dependency
+        run: yarn install --frozen-lockfile
+      - name: Frontend - build
+        run: yarn build
+      - name: Frontend - upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
+  publish:
+    name: Publish built site onto GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download built site
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.6.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build

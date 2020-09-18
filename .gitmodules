@@ -1,0 +1,6 @@
+[submodule "gust-data"]
+	path = gust-data
+	url = https://github.com/CircuitCoder/gust-data.git
+[submodule "gust-gen"]
+	path = gust-gen
+	url = https://github.com/CircuitCoder/gust-gen.git
