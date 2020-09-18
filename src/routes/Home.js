@@ -11,7 +11,6 @@ import clsx from 'clsx';
 class ListingEntryEntity extends PureComponent {
   // Two inner refs is for the two-stage transition
   innerRef = createRef();
-  innerVertRef = createRef();
   dummyRef = createRef();
 
   render() {
@@ -25,10 +24,8 @@ class ListingEntryEntity extends PureComponent {
     return (
       <div className={cn} {...rest}>
         <div className="home-entity-dummy" ref={this.dummyRef}></div>
-        <div className="home-entity-inner-vert" ref={this.innerVertRef}>
-          <div className="home-entity-inner" ref={this.innerRef}>
-            {children}
-          </div>
+        <div className="home-entity-inner" ref={this.innerRef}>
+          {children}
         </div>
       </div>
     );
@@ -50,10 +47,8 @@ class ListingEntryEntity extends PureComponent {
     if (snapshot === null) return; // Pinned state unchanged
 
     const inner = this.innerRef.current;
-    const innerVert = this.innerVertRef.current;
     const dummy = this.dummyRef.current;
     if (!dummy || !inner) return;
-    console.assert(innerVert, 'Inconsistency in react render tree');
 
     const { height } = snapshot;
     dummy.style.height = height + 'px';
@@ -83,34 +78,18 @@ class ListingEntryEntity extends PureComponent {
      * Use WAAPI to avoid CSS shenanigans
      * TODO: interrupt ongoing transitions
      *
-     * We need to queue effectively three different animations to
+     * We need to queue effectively four different animations to
      * deal with three non-uniform transition caused by
      * the staggered movement of the logo.
      *
-     * - Vertical displacement + gap, starts immediately
+     * - Vertical displacement, starts immediately
+     * - Gap, starts immediately
      * - Logo shrink, starts immediately
      * - Logo move, starts with delay
      *
-     * The first two can be merged(same delay & duration), so that's what we did.
+     * The 2nd & 3rd can be merged(same delay & duration), so that's what we did.
      * But if related constants changes in the SCSS, then we will have to split those
      */
-
-    // First, translateY manually on wrapper element
-    // TODO: Actually, we only have an one-segment transition for Y direction. Maybe we can also
-    //   include it in a standalone CSS property, transition it using this API, and eliminate the
-    //   need for a `inner-vert` element?
-    innerVert.animate(
-      [{
-        transform: `translateY(${flipped.y}px)`,
-      }, {
-        transform: 'none',
-      }],
-      {
-        duration: 500,
-        easing: 'ease',
-        fill: 'both',
-      },
-    );
 
     /**
      * A helper function to do animations.
@@ -141,12 +120,17 @@ class ListingEntryEntity extends PureComponent {
       );
     }
 
+    // First, animate vertical displacement
+    varTrans('--home-pin-vert', `${flipped.y}px`);
+
     const HALF_LOGO_SHRINK = (420 - 120) / 2;
 
-    // FIXME: because these two are constants, maybe we can move the transition
+    // TODO: because these two are constants, maybe we can move the transition
     //   into the CSS file instead?
     //   `xratio` is consistent throughout each INDIVIDUAL transition, so it can be
     //   included as a multiply factor in the calc clause?
+    // Then we may be able to share less variables across JS/SCSS
+    // But that will also divide up the logic for transform.
     varTrans('--home-pin-early', `${xratio * (40 + HALF_LOGO_SHRINK)}px`);
     varTrans('--home-pin-late', `${xratio * HALF_LOGO_SHRINK}px`, { delay: 100 });
   }

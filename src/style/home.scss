@@ -310,7 +310,9 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
   }
 
   &-inner {
-    transform: translateX(calc(var(--home-pin-early) + var(--home-pin-late)));
+    width: $full-width;
+    transform: translateY(var(--home-pin-vert))
+      translateX(calc(var(--home-pin-early) + var(--home-pin-late)));
 
     @function right-clip-bound() {
       @return calc(
@@ -326,12 +328,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
     );
   }
 
-  &-inner-vert {
-    width: $full-width;
-  }
-
-  &-pinned &-inner-vert {
-    // Fixing inner-vert instead of inner
+  &-pinned &-inner {
     position: fixed;
     top: 40px;
     left: hoz-padding($pinned-inner-left);

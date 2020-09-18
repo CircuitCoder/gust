@@ -1,6 +1,15 @@
 /* stylelint-disable */
 
 /**
+ * Vertical displacement related to the transition
+ */
+@property --home-pin-vert {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+/**
  * Early offset related to the transition
  */
 @property --home-pin-early {
