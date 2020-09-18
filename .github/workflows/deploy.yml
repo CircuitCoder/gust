@@ -1,3 +1,4 @@
+name: deploy
 on: push
 
 jobs:
@@ -11,6 +12,7 @@ jobs:
         with:
           lfs: true
           submodules: true
+          fetch-depth: 0
       - name: Toolchain - rust
         uses: actions-rs/toolchain@v1
         with:

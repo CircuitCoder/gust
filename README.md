@@ -1,5 +1,7 @@
 # Gust
 
+![GitHub Actions](https://img.shields.io/github/workflow/status/CircuitCoder/gust/deploy?style=for-the-badge)
+
 This repository contains the primary source code for [gust.construction](https://gust.construction/).
 
 This repo itself contains the source code for the frontend, the build script (powered by GitHub Actions), as well as serves as the GitHub Pages host of the public site. The raw content and a pre-processor are placed in separate repositories, contained as submodules in this master repo. You can find those code at:
