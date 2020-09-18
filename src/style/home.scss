@@ -211,7 +211,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
           calc(100% - #{105px + 300px + $hover-shift}) 900px
         );
 
-        transition: transform .2s ease, opacity 0.2s ease;
+        transition: transform 0.2s ease, opacity 0.2s ease;
         transform: none;
         opacity: 0.5;
 
@@ -300,19 +300,34 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
 .home-entity {
   margin-bottom: 40px;
 
+  $free-inner-left: 420px + 10px + 40px + 60px;
+  $pinned-inner-left: 120px + 10px + 40px + 20px;
+  // TODO(refactor): extract 1240px
+  $full-width: 1240px - $pinned-inner-left;
+
   &-dummy {
     display: none;
   }
 
   &-inner {
     transform: translateX(calc(var(--home-pin-early) + var(--home-pin-late)));
+
+    @function right-clip-bound() {
+      @return calc(
+        #{$full-width} + var(--right-bias) - var(--home-pin-early) - var(--home-pin-late)
+      );
+    }
+
+    clip-path: polygon(
+      0 0,
+      0 100%,
+      right-clip-bound() 100%,
+      right-clip-bound() 0
+    );
   }
 
-  $free-inner-left: 420px + 10px + 40px + 60px;
-  $pinned-inner-left: 120px + 10px + 40px + 20px;
-
   &-inner-vert {
-    width: 1240px - $pinned-inner-left;
+    width: $full-width;
   }
 
   &-pinned &-inner-vert {

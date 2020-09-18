@@ -9,6 +9,9 @@
   initial-value: 0px;
 }
 
+/**
+ * Late offset related to the transition
+ */
 @property --home-pin-late {
   syntax: '<length>';
   inherits: true;
