@@ -1,6 +1,6 @@
 $hover-shift: 40px;
 
-$pin-transition-length: 5s;
+$pin-transition-length: 1s;
 
 .home {
   padding-top: 40px;
@@ -264,7 +264,7 @@ $pin-transition-length: 5s;
     display: none;
   }
 
-  &-pinned &-inner {
+  &-pinned &-inner-delayed { // Fixing inner-delayed instead of inner
     $inner-left: 120px + 10px + 40px + 20px;
 
     position: fixed;

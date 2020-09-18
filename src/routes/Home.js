@@ -9,7 +9,9 @@ import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
 
 class ListingEntryEntity extends PureComponent {
+  // Two inner refs is for the two-stage transition
   innerRef = createRef();
+  innerDelayedRef = createRef();
   dummyRef = createRef();
 
   render() {
@@ -23,8 +25,10 @@ class ListingEntryEntity extends PureComponent {
     return (
       <div className={cn} {...rest}>
         <div className="home-entity-dummy" ref={this.dummyRef}></div>
-        <div className="home-entity-inner" ref={this.innerRef}>
-          {children}
+        <div className="home-entity-inner-delayed" ref={this.innerDelayedRef}>
+          <div className="home-entity-inner" ref={this.innerRef}>
+            {children}
+          </div>
         </div>
       </div>
     );
@@ -46,8 +50,10 @@ class ListingEntryEntity extends PureComponent {
     if (snapshot === null) return; // Pinned state unchanged
 
     const inner = this.innerRef.current;
+    const innerDelayed = this.innerDelayedRef.current;
     const dummy = this.dummyRef.current;
     if (!dummy || !inner) return;
+    console.assert(innerDelayed, 'Inconsistency in react render tree');
 
     const { height } = snapshot;
     dummy.style.height = height + 'px';
@@ -68,26 +74,52 @@ class ListingEntryEntity extends PureComponent {
      */
     const EXPECTED_X_DISP = 420 - 120 + 60 - 20;
     if (Math.abs(flipped.x) !== EXPECTED_X_DISP)
-      console.warn(`Unexpected X displacement: ${flipped.x}, should be ${EXPECTED_X_DISP}`);
+      console.warn(
+        `Unexpected X displacement: ${flipped.x}, should be ${EXPECTED_X_DISP}`,
+      );
+    const xratio = flipped.x / EXPECTED_X_DISP;
 
-    // Use WAAPI to avoid CSS shenanigans
-    // TODO: interrupt ongoing transitions
-    const transition = inner.animate(
-      [
-        {
-          transform: `translateY(${flipped.y}px)`,
-        },
-        {
+    /**
+     * Use WAAPI to avoid CSS shenanigans
+     * TODO: interrupt ongoing transitions
+     *
+     * We need to queue effectively three different animations to
+     * deal with three non-uniform transition caused by
+     * the staggered movement of the logo.
+     *
+     * - Vertical displacement + gap, starts immediately
+     * - Logo shrink, starts immediately
+     * - Logo move, starts with delay
+     *
+     * The first two can be merged(same delay & duration), so that's what we did.
+     * But if related constants changes in the SCSS, then we will have to split those
+     */
+
+    /**
+     * A helper function to do animations.
+     * We used an option object because we would like to keep the duration optional,
+     * but that will be inconsistence with the CSS format (duration delay) if we are to
+     * use ordinary parameters.
+     */
+    function transformFrom(el, from, { delay = 0, duration = 500 } = {}) {
+      el.animate(
+        [{
+          transform: from,
+        }, {
           transform: 'none',
+        }],
+        {
+          duration,
+          delay,
+          easing: 'ease',
+          fill: 'both',
         },
-      ],
-      {
-        duration: 500,
-        easing: 'ease',
-      },
-    );
+      )
+    }
 
-    transition.play();
+    const HALF_LOGO_SHRINK = (420 - 120) / 2;
+    transformFrom(inner, `translate(${xratio * (40 + HALF_LOGO_SHRINK)}px, ${flipped.y}px)`)
+    transformFrom(innerDelayed, `translateX(${xratio * HALF_LOGO_SHRINK}px)`, { delay: 100 });
   }
 }
 
