@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
 import './style/index.scss';
+import 'web-animations-js';
 
 import store from './store';
 import { Provider as ReduxProvider } from 'react-redux';

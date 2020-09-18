@@ -14,6 +14,7 @@ import Main from '../comps/Main';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
+import Transition from 'react-transition-group/cjs/Transition';
 
 class ListingEntryEntity extends PureComponent {
   innerRef = createRef();
@@ -40,20 +41,46 @@ class ListingEntryEntity extends PureComponent {
   getSnapshotBeforeUpdate(pp) {
     if (pp.pinned === this.props.pinned) return null;
 
-    if (!this.innerRef.current) {
+    const inner = this.innerRef.current;
+    if (!inner) {
       return null;
     } else {
-      const bbox = this.innerRef.current.getBoundingClientRect();
-      return bbox.height;
+      const bbox = inner.getBoundingClientRect();
+      return bbox;
     }
   }
 
   componentDidUpdate(pp, ps, snapshot) {
     if (snapshot === null) return; // Pinned state unchanged
 
+    const inner = this.innerRef.current;
     const dummy = this.dummyRef.current;
-    if(!dummy) return;
-    dummy.style.height = snapshot + 'px';
+    if(!dummy || !inner) return;
+
+    const { height } = snapshot;
+    dummy.style.height = height + 'px';
+
+    const bbox = inner.getBoundingClientRect();
+
+    const flipped = {
+      x: snapshot.x - bbox.x,
+      y: snapshot.y - bbox.y,
+    };
+
+    // Use WAAPI to avoid CSS shenanigans
+    // TODO: interrupt ongoing transitions
+    const transition = inner.animate(
+      [
+        { transform: `translate(${flipped.x}px, ${flipped.y}px)` },
+        { transform: 'none' },
+      ],
+      {
+        duration: 500,
+        easing: 'ease',
+      }
+    );
+
+    transition.play();
   }
 }
 

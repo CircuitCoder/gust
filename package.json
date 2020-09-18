@@ -21,7 +21,8 @@
     "remark-frontmatter": "^2.0.0",
     "remark-parse": "^8.0.3",
     "remark-rehype": "^7.0.0",
-    "unified": "^9.2.0"
+    "unified": "^9.2.0",
+    "web-animations-js": "^2.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
