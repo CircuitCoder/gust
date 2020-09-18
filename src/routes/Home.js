@@ -96,6 +96,9 @@ class ListingEntryEntity extends PureComponent {
      */
 
     // First, translateY manually on wrapper element
+    // TODO: Actually, we only have an one-segment transition for Y direction. Maybe we can also
+    //   include it in a standalone CSS property, transition it using this API, and eliminate the
+    //   need for a `inner-vert` element?
     innerVert.animate(
       [{
         transform: `translateY(${flipped.y}px)`,
@@ -139,6 +142,11 @@ class ListingEntryEntity extends PureComponent {
     }
 
     const HALF_LOGO_SHRINK = (420 - 120) / 2;
+
+    // FIXME: because these two are constants, maybe we can move the transition
+    //   into the CSS file instead?
+    //   `xratio` is consistent throughout each INDIVIDUAL transition, so it can be
+    //   included as a multiply factor in the calc clause?
     varTrans('--home-pin-early', `${xratio * (40 + HALF_LOGO_SHRINK)}px`);
     varTrans('--home-pin-late', `${xratio * HALF_LOGO_SHRINK}px`, { delay: 100 });
   }
@@ -173,6 +181,9 @@ const ListingEntry = ({ entry, current, ...rest }) => {
                 <div className="home-tile-inner-mtime-text">
                   {entry.last_modified}
                 </div>
+              </div>
+
+              <div className="home-tile-inner-sheet">
               </div>
             </div>
           </div>

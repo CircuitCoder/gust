@@ -2,6 +2,24 @@ $hover-shift: 40px;
 
 $pin-transition-length: 1s;
 
+$move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap / etc
+
+@mixin right-biased {
+  /* prettier-ignore */
+  transform: translateX(
+    calc(
+      /* Bais added by the environment (pinned or free) */
+      var(--right-bias)
+
+      /* Early transition */
+      + var(--home-pin-early)
+
+      /* Late transition */
+      + var(--home-pin-late)
+    )
+  );
+}
+
 .home {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -31,7 +49,8 @@ $pin-transition-length: 1s;
 
     $outer: &;
 
-    &-meta, &-meta-pinned {
+    &-meta,
+    &-meta-pinned {
       background: $background;
       line-height: 60px;
       font-size: 32px;
@@ -97,10 +116,13 @@ $pin-transition-length: 1s;
           font-weight: 400;
           font-style: italic;
         }
+
+        @include right-biased;
       }
     }
 
-    &-inner, &-inner-pinned {
+    &-inner,
+    &-inner-pinned {
       background: rgba(0, 0, 0, 0.05);
       border-left: rgba(0, 0, 0, 0.1) 5px solid;
       padding: 20px 25px 25px 25px;
@@ -111,7 +133,7 @@ $pin-transition-length: 1s;
         font-size: 14px;
         line-height: 20px; // This number is choosen because meow can do simpler math
         color: rgba(0, 0, 0, 0.38);
-        
+
         transition: opacity $pin-transition-length ease;
       }
 
@@ -133,7 +155,8 @@ $pin-transition-length: 1s;
         line-height: 30px;
         margin-bottom: 20px;
 
-        transition: transform $pin-transition-length ease, opacity $pin-transition-length ease;
+        transition: transform $pin-transition-length ease,
+          opacity $pin-transition-length ease;
       }
 
       &-mtime {
@@ -149,13 +172,28 @@ $pin-transition-length: 1s;
         font-size: 16px;
         line-height: 20px;
 
-        transition: transform $pin-transition-length ease, opacity $pin-transition-length ease;
+        transition: transform $pin-transition-length ease,
+          opacity $pin-transition-length ease;
       }
 
       position: relative;
       overflow: hidden;
 
-      &:after {
+      /**
+       * Right sheet. This class itself is used as an wrapper for the `&-sheet:after`
+       * to receive the right bias values
+       */
+      &-sheet {
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        @include right-biased;
+      }
+
+      &-sheet:after {
         content: 'VIEW DETAIL';
         user-select: none;
         background: change-color($accent, $alpha: 0.1);
@@ -173,7 +211,7 @@ $pin-transition-length: 1s;
           calc(100% - #{105px + 300px + $hover-shift}) 900px
         );
 
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        transition: transform .2s ease, opacity 0.2s ease;
         transform: none;
         opacity: 0.5;
 
@@ -196,7 +234,7 @@ $pin-transition-length: 1s;
       background: none;
       border-left-color: transparent;
 
-      &::after {
+      &:after {
         content: none;
       }
     }
@@ -207,7 +245,7 @@ $pin-transition-length: 1s;
         clip-path: polygon(20px 0%, 100% 0, 100% 100%, 0 100%);
       }
 
-      #{$root}-inner:after {
+      #{$root}-inner-sheet:after {
         transform: translateX(-$hover-shift);
         opacity: 1;
       }
@@ -221,7 +259,7 @@ $pin-transition-length: 1s;
   }
 
   &-enter-active {
-    transition: opacity .5s ease;
+    transition: opacity 0.5s ease;
     opacity: 1;
   }
 
@@ -234,7 +272,7 @@ $pin-transition-length: 1s;
   }
 
   &-appear-active {
-    transition: opacity .5s ease;
+    transition: opacity 0.5s ease;
     opacity: 1;
   }
 
@@ -247,7 +285,7 @@ $pin-transition-length: 1s;
   }
 
   &-exit-active {
-    transition: opacity .5s ease;
+    transition: opacity 0.5s ease;
     opacity: 0;
     pointer-events: none;
   }
@@ -258,6 +296,7 @@ $pin-transition-length: 1s;
   }
 }
 
+// Entity setup
 .home-entity {
   margin-bottom: 40px;
 
@@ -276,7 +315,8 @@ $pin-transition-length: 1s;
     width: 1240px - $pinned-inner-left;
   }
 
-  &-pinned &-inner-vert { // Fixing inner-vert instead of inner
+  &-pinned &-inner-vert {
+    // Fixing inner-vert instead of inner
     position: fixed;
     top: 40px;
     left: hoz-padding($pinned-inner-left);
@@ -287,13 +327,20 @@ $pin-transition-length: 1s;
   }
 }
 
+// Entity shift biases
+.home-entity {
+  --right-bias: #{-$move-dist};
+
+  &-pinned {
+    --right-bias: 0px;
+  }
+}
+
 // Clip mask transitions
 .home-pin {
   &-clip {
     transition: clip-path $pin-transition-length ease;
-    clip-path: polygon(
-      0 0, 0 100%, 100% 100%, 100% 0,
-    );
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
   }
 
   &-anti-clip {
@@ -304,29 +351,24 @@ $pin-transition-length: 1s;
     bottom: 0;
 
     transition: clip-path $pin-transition-length ease;
-    clip-path: polygon(
-      0 100%, 0 100%, 100% 100%, 100% 100%,
-    );
+    clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
   }
 }
 
 .home-entity-pinned .home-pin {
   &-clip {
-    clip-path: polygon(
-      0 0, 0 0, 100% 0, 100% 0,
-    );
+    clip-path: polygon(0 0, 0 0, 100% 0, 100% 0);
   }
 
   &-anti-clip {
-    clip-path: polygon(
-      0 0, 0 100%, 100% 100%, 100% 0,
-    );
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
   }
 }
 
 // Content displacements
 .home-entity-pinned .home-tile {
-  &-inner, &-inner-pinned {
+  &-inner,
+  &-inner-pinned {
     &-summary {
       &::before {
         opacity: 0;
@@ -334,7 +376,7 @@ $pin-transition-length: 1s;
 
       // 20px padding, 20px header -> 10px padding
       transform: translateY(-30px) translateX(-25px);
-      opacity: .54;
+      opacity: 0.54;
     }
 
     &-mtime {
@@ -343,7 +385,7 @@ $pin-transition-length: 1s;
       }
 
       transform: translateY(-70px) translateX(-25px);
-      opacity: .54;
+      opacity: 0.54;
     }
   }
 }
