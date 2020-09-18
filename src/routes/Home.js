@@ -11,7 +11,7 @@ import clsx from 'clsx';
 class ListingEntryEntity extends PureComponent {
   // Two inner refs is for the two-stage transition
   innerRef = createRef();
-  innerDelayedRef = createRef();
+  innerVertRef = createRef();
   dummyRef = createRef();
 
   render() {
@@ -25,7 +25,7 @@ class ListingEntryEntity extends PureComponent {
     return (
       <div className={cn} {...rest}>
         <div className="home-entity-dummy" ref={this.dummyRef}></div>
-        <div className="home-entity-inner-delayed" ref={this.innerDelayedRef}>
+        <div className="home-entity-inner-vert" ref={this.innerVertRef}>
           <div className="home-entity-inner" ref={this.innerRef}>
             {children}
           </div>
@@ -50,10 +50,10 @@ class ListingEntryEntity extends PureComponent {
     if (snapshot === null) return; // Pinned state unchanged
 
     const inner = this.innerRef.current;
-    const innerDelayed = this.innerDelayedRef.current;
+    const innerVert = this.innerVertRef.current;
     const dummy = this.dummyRef.current;
     if (!dummy || !inner) return;
-    console.assert(innerDelayed, 'Inconsistency in react render tree');
+    console.assert(innerVert, 'Inconsistency in react render tree');
 
     const { height } = snapshot;
     dummy.style.height = height + 'px';
@@ -95,18 +95,39 @@ class ListingEntryEntity extends PureComponent {
      * But if related constants changes in the SCSS, then we will have to split those
      */
 
+    // First, translateY manually on wrapper element
+    innerVert.animate(
+      [{
+        transform: `translateY(${flipped.y}px)`,
+      }, {
+        transform: 'none',
+      }],
+      {
+        duration: 500,
+        easing: 'ease',
+        fill: 'both',
+      },
+    );
+
     /**
      * A helper function to do animations.
      * We used an option object because we would like to keep the duration optional,
      * but that will be inconsistence with the CSS format (duration delay) if we are to
      * use ordinary parameters.
+     * 
+     * Also, we are animating custom CSS properties (namely `var`s). This requires a typed
+     * custom property, which is rather new in current browsers (Chrome since 85, FF unsupported).
+     * An JS (CSSOM) version of the Houdini API is already available ever since approx. a year earlier,
+     * so we may want to use that as a fallback.
+     * 
+     * TODO: fallback `@property` to CSSOM
      */
-    function transformFrom(el, from, { delay = 0, duration = 500 } = {}) {
-      el.animate(
+    function varTrans(name, from, { delay = 0, duration = 500 } = {}) {
+      inner.animate(
         [{
-          transform: from,
+          [name]: from,
         }, {
-          transform: 'none',
+          [name]: 0,
         }],
         {
           duration,
@@ -114,12 +135,12 @@ class ListingEntryEntity extends PureComponent {
           easing: 'ease',
           fill: 'both',
         },
-      )
+      );
     }
 
     const HALF_LOGO_SHRINK = (420 - 120) / 2;
-    transformFrom(inner, `translate(${xratio * (40 + HALF_LOGO_SHRINK)}px, ${flipped.y}px)`)
-    transformFrom(innerDelayed, `translateX(${xratio * HALF_LOGO_SHRINK}px)`, { delay: 100 });
+    varTrans('--home-pin-early', `${xratio * (40 + HALF_LOGO_SHRINK)}px`);
+    varTrans('--home-pin-late', `${xratio * HALF_LOGO_SHRINK}px`, { delay: 100 });
   }
 }
 

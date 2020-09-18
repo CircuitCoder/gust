@@ -14,6 +14,7 @@ $pin-transition-length: 1s;
 
   &-right {
     flex: 1;
+    min-width: 0;
     margin-left: 60px;
     pointer-events: all;
   }
@@ -132,7 +133,7 @@ $pin-transition-length: 1s;
         line-height: 30px;
         margin-bottom: 20px;
 
-        transition: transform $pin-transition-length ease;
+        transition: transform $pin-transition-length ease, opacity $pin-transition-length ease;
       }
 
       &-mtime {
@@ -148,7 +149,7 @@ $pin-transition-length: 1s;
         font-size: 16px;
         line-height: 20px;
 
-        transition: transform $pin-transition-length ease;
+        transition: transform $pin-transition-length ease, opacity $pin-transition-length ease;
       }
 
       position: relative;
@@ -264,13 +265,21 @@ $pin-transition-length: 1s;
     display: none;
   }
 
-  &-pinned &-inner-delayed { // Fixing inner-delayed instead of inner
-    $inner-left: 120px + 10px + 40px + 20px;
+  &-inner {
+    transform: translateX(calc(var(--home-pin-early) + var(--home-pin-late)));
+  }
 
+  $free-inner-left: 420px + 10px + 40px + 60px;
+  $pinned-inner-left: 120px + 10px + 40px + 20px;
+
+  &-inner-vert {
+    width: 1240px - $pinned-inner-left;
+  }
+
+  &-pinned &-inner-vert { // Fixing inner-vert instead of inner
     position: fixed;
     top: 40px;
-    left: hoz-padding($inner-left);
-    width: 1240px - $inner-left;
+    left: hoz-padding($pinned-inner-left);
   }
 
   &-pinned &-dummy {
@@ -325,6 +334,7 @@ $pin-transition-length: 1s;
 
       // 20px padding, 20px header -> 10px padding
       transform: translateY(-30px) translateX(-25px);
+      opacity: .54;
     }
 
     &-mtime {
@@ -333,6 +343,7 @@ $pin-transition-length: 1s;
       }
 
       transform: translateY(-70px) translateX(-25px);
+      opacity: .54;
     }
   }
 }

@@ -1,0 +1,16 @@
+/* stylelint-disable */
+
+/**
+ * Early offset related to the transition
+ */
+@property --home-pin-early {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --home-pin-late {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
