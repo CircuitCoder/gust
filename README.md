@@ -1,6 +1,6 @@
 # Gust
 
-![GitHub Actions](https://img.shields.io/github/workflow/status/CircuitCoder/gust/deploy?style=for-the-badge)
+[![GitHub Actions](https://img.shields.io/github/workflow/status/CircuitCoder/gust/deploy?style=for-the-badge)](https://github.com/CircuitCoder/gust/actions)
 
 This repository contains the primary source code for [gust.construction](https://gust.construction/).
 
