@@ -48,6 +48,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
+          path: build
       - name: Artifact - push
         uses: JamesIves/github-pages-deploy-action@3.6.1
         with:
