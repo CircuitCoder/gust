@@ -1,15 +1,15 @@
-$icon-spacing: 120px + 10px + 40px + 40px;
+$left-spacing: 120px + 10px + 40px + 40px;
 $top-spacing: 40px + 120px + 40px;
 $col-spacing: 200px;
 
 $col-width: 550px;
 
-$overscroll: calc(50vw - #{620px - $icon-spacing});
+$overscroll: calc(50vw - #{620px - $left-spacing});
 
 main.entry {
   margin-top: $top-spacing;
-  padding-left: $icon-spacing;
-  padding-right: $icon-spacing;
+  padding-left: $left-spacing;
+  padding-right: $left-spacing;
 
   height: calc(100vh - #{80px+$top-spacing});
 

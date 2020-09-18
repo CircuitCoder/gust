@@ -1,11 +1,4 @@
-import React, {
-  createRef,
-  PureComponent,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { createRef, PureComponent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchList } from '../store/actions';
 import { Link } from 'react-router-dom';
@@ -14,7 +7,6 @@ import Main from '../comps/Main';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
-import Transition from 'react-transition-group/cjs/Transition';
 
 class ListingEntryEntity extends PureComponent {
   innerRef = createRef();
@@ -23,7 +15,7 @@ class ListingEntryEntity extends PureComponent {
   render() {
     const { pinned, frozen, className, children, ...rest } = this.props;
 
-    const cn = clsx(className, "home-entity", {
+    const cn = clsx(className, 'home-entity', {
       'home-entity-pinned': pinned,
       'home-entity-frozen': frozen,
     });
@@ -55,7 +47,7 @@ class ListingEntryEntity extends PureComponent {
 
     const inner = this.innerRef.current;
     const dummy = this.dummyRef.current;
-    if(!dummy || !inner) return;
+    if (!dummy || !inner) return;
 
     const { height } = snapshot;
     dummy.style.height = height + 'px';
@@ -71,13 +63,17 @@ class ListingEntryEntity extends PureComponent {
     // TODO: interrupt ongoing transitions
     const transition = inner.animate(
       [
-        { transform: `translate(${flipped.x}px, ${flipped.y}px)` },
-        { transform: 'none' },
+        {
+          transform: `translate(${flipped.x}px, ${flipped.y}px)`,
+        },
+        {
+          transform: 'none',
+        },
       ],
       {
         duration: 500,
         easing: 'ease',
-      }
+      },
     );
 
     transition.play();
@@ -97,20 +93,40 @@ const ListingEntry = ({ entry, current, ...rest }) => {
         timeout={1000}
       >
         <Link to={`/entry/${entry.slug}`} className="home-tile">
-          <div className="home-tile-meta">
-            <div className="home-tile-meta-sharp">#</div>
-            <div className="home-tile-meta-slug">{entry.slug}</div>
+          <div className="home-pin-clip">
+            <div className="home-tile-meta">
+              <div className="home-tile-meta-sharp">#</div>
+              <div className="home-tile-meta-slug">{entry.slug}</div>
 
-            <div className="home-tile-meta-author">{entry.author}</div>
-          </div>
-
-          <div className="home-tile-inner">
-            <div className="home-tile-inner-summary">
-              <div className="home-tile-inner-summary-text">{entry.desc}</div>
+              <div className="home-tile-meta-author">{entry.author}</div>
             </div>
-            <div className="home-tile-inner-mtime">
-              <div className="home-tile-inner-mtime-text">
-                {entry.last_modified}
+
+            <div className="home-tile-inner">
+              <div className="home-tile-inner-summary">
+                <div className="home-tile-inner-summary-text">{entry.desc}</div>
+              </div>
+              <div className="home-tile-inner-mtime">
+                <div className="home-tile-inner-mtime-text">
+                  {entry.last_modified}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="home-pin-anti-clip">
+            <div className="home-tile-meta-pinned">
+              <div className="home-tile-meta-pinned-sharp">#</div>
+              <div className="home-tile-meta-pinned-slug">{entry.slug}</div>
+            </div>
+
+            <div className="home-tile-inner-pinned">
+              <div className="home-tile-inner-pinned-summary">
+                <div className="home-tile-inner-pinned-summary-text">{entry.desc}</div>
+              </div>
+              <div className="home-tile-inner-pinned-mtime">
+                <div className="home-tile-inner-pinned-mtime-text">
+                  {entry.last_modified}
+                </div>
               </div>
             </div>
           </div>

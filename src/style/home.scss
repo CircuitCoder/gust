@@ -1,5 +1,7 @@
 $hover-shift: 40px;
 
+$pin-transition-length: 5s;
+
 .home {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -18,6 +20,7 @@ $hover-shift: 40px;
 
   &-tile {
     display: block;
+    position: relative;
     user-select: none;
 
     // By default, before enter
@@ -25,7 +28,9 @@ $hover-shift: 40px;
 
     cursor: pointer;
 
-    &-meta {
+    $outer: &;
+
+    &-meta, &-meta-pinned {
       background: $background;
       line-height: 60px;
       font-size: 32px;
@@ -94,7 +99,7 @@ $hover-shift: 40px;
       }
     }
 
-    &-inner {
+    &-inner, &-inner-pinned {
       background: rgba(0, 0, 0, 0.05);
       border-left: rgba(0, 0, 0, 0.1) 5px solid;
       padding: 20px 25px 25px 25px;
@@ -103,7 +108,10 @@ $hover-shift: 40px;
         @include font-monospace;
         display: block;
         font-size: 14px;
+        line-height: 20px; // This number is choosen because meow can do simpler math
         color: rgba(0, 0, 0, 0.38);
+        
+        transition: opacity $pin-transition-length ease;
       }
 
       @mixin firsty-bold {
@@ -121,7 +129,10 @@ $hover-shift: 40px;
         @include font-serif;
         @include firsty-bold;
         font-size: 20px;
+        line-height: 30px;
         margin-bottom: 20px;
+
+        transition: transform $pin-transition-length ease;
       }
 
       &-mtime {
@@ -133,6 +144,11 @@ $hover-shift: 40px;
         @include firsty-bold;
         @include font-monospace;
         color: $accent;
+
+        font-size: 16px;
+        line-height: 20px;
+
+        transition: transform $pin-transition-length ease;
       }
 
       position: relative;
@@ -168,6 +184,19 @@ $hover-shift: 40px;
 
         font-weight: 900;
         color: change-color($accent, $alpha: 0.38);
+      }
+    }
+
+    &-meta-pinned {
+      background: none;
+    }
+
+    &-inner-pinned {
+      background: none;
+      border-left-color: transparent;
+
+      &::after {
+        content: none;
       }
     }
 
@@ -236,12 +265,74 @@ $hover-shift: 40px;
   }
 
   &-pinned &-inner {
+    $inner-left: 120px + 10px + 40px + 20px;
+
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 40px;
+    left: calc(50vw - #{620px - $inner-left});
+    width: 1240px - $inner-left;
   }
 
   &-pinned &-dummy {
     display: block;
+  }
+}
+
+// Clip mask transitions
+.home-pin {
+  &-clip {
+    transition: clip-path $pin-transition-length ease;
+    clip-path: polygon(
+      0 0, 0 100%, 100% 100%, 100% 0,
+    );
+  }
+
+  &-anti-clip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    transition: clip-path $pin-transition-length ease;
+    clip-path: polygon(
+      0 100%, 0 100%, 100% 100%, 100% 100%,
+    );
+  }
+}
+
+.home-entity-pinned .home-pin {
+  &-clip {
+    clip-path: polygon(
+      0 0, 0 0, 100% 0, 100% 0,
+    );
+  }
+
+  &-anti-clip {
+    clip-path: polygon(
+      0 0, 0 100%, 100% 100%, 100% 0,
+    );
+  }
+}
+
+// Content displacements
+.home-entity-pinned .home-tile {
+  &-inner, &-inner-pinned {
+    &-summary {
+      &::before {
+        opacity: 0;
+      }
+
+      // 20px padding, 20px header -> 10px padding
+      transform: translateY(-30px) translateX(-25px);
+    }
+
+    &-mtime {
+      &::before {
+        opacity: 0;
+      }
+
+      transform: translateY(-70px) translateX(-25px);
+    }
   }
 }
