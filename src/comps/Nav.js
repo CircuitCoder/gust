@@ -28,7 +28,7 @@ const Nav = () => {
           </div>
 
           <div className="title-tile-meta-inner title-tile-meta-alt">
-            <strong>BACK</strong>&nbsp;<span class="title-tile-meta-alt-arrow">&gt;</span>
+            <strong>BACK</strong>&nbsp;<span className="title-tile-meta-alt-arrow">&gt;</span>
           </div>
         </div>
       </div>

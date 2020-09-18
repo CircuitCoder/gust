@@ -18,7 +18,6 @@ $hover-shift: 40px;
 
   &-tile {
     display: block;
-    margin-bottom: 40px;
     user-select: none;
 
     // By default, before enter
@@ -226,5 +225,23 @@ $hover-shift: 40px;
   &-exit-done {
     opacity: 0;
     pointer-events: none;
+  }
+}
+
+.home-entity {
+  margin-bottom: 40px;
+
+  &-dummy {
+    display: none;
+  }
+
+  &-pinned &-inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  &-pinned &-dummy {
+    display: block;
   }
 }
