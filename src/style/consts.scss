@@ -9,3 +9,7 @@ $accent: #275c99;
 // Length
 
 $extended-width: 1240px;
+$scrollbar-width: 10px; // Sorry firefox, we did our best
+@function hoz-padding($pad, $expected-width: $extended-width) {
+  @return calc(50vw - #{$scrollbar-width/2 + $expected-width/2 - $pad});
+}

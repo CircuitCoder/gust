@@ -55,16 +55,27 @@ class ListingEntryEntity extends PureComponent {
     const bbox = inner.getBoundingClientRect();
 
     const flipped = {
-      x: snapshot.x - bbox.x,
+      x: snapshot.x - bbox.x, // This is unused. See the comment below
       y: snapshot.y - bbox.y,
     };
+
+    /**
+     * We weakly asserts that math.abs(flipped.x) ===
+     *
+     * [Icon]        [Gap]
+     * (420 - 120) + (60 - 10)
+     *
+     */
+    const EXPECTED_X_DISP = 420 - 120 + 60 - 20;
+    if (Math.abs(flipped.x) !== EXPECTED_X_DISP)
+      console.warn(`Unexpected X displacement: ${flipped.x}, should be ${EXPECTED_X_DISP}`);
 
     // Use WAAPI to avoid CSS shenanigans
     // TODO: interrupt ongoing transitions
     const transition = inner.animate(
       [
         {
-          transform: `translate(${flipped.x}px, ${flipped.y}px)`,
+          transform: `translateY(${flipped.y}px)`,
         },
         {
           transform: 'none',
@@ -112,7 +123,7 @@ const ListingEntry = ({ entry, current, ...rest }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="home-pin-anti-clip">
             <div className="home-tile-meta-pinned">
               <div className="home-tile-meta-pinned-sharp">#</div>
@@ -121,7 +132,9 @@ const ListingEntry = ({ entry, current, ...rest }) => {
 
             <div className="home-tile-inner-pinned">
               <div className="home-tile-inner-pinned-summary">
-                <div className="home-tile-inner-pinned-summary-text">{entry.desc}</div>
+                <div className="home-tile-inner-pinned-summary-text">
+                  {entry.desc}
+                </div>
               </div>
               <div className="home-tile-inner-pinned-mtime">
                 <div className="home-tile-inner-pinned-mtime-text">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Markdown from '../comps/Markdown';
 import { useTitle } from '../utils/hooks';
 import { retrieve } from '../utils/networking';

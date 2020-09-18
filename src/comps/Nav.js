@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 const Nav = () => {

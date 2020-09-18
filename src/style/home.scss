@@ -269,7 +269,7 @@ $pin-transition-length: 5s;
 
     position: fixed;
     top: 40px;
-    left: calc(50vw - #{620px - $inner-left});
+    left: hoz-padding($inner-left);
     width: 1240px - $inner-left;
   }
 
