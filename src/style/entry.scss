@@ -57,7 +57,7 @@ main.entry > div {
   }
 
   &-exit-active {
-    transition: opacity .5s ease, transform 1s ease;
+    transition: opacity .25s ease, transform .25s ease;
     opacity: 0;
     transform: translateX(30px);
     pointer-events: none;

@@ -16,6 +16,7 @@ const Nav = () => {
     <nav className={remote ? 'mini' : ''}>
       <div className="title-tile" onClick={home}>
         <div className="title">
+          <div className="title-outer"></div>
           <div className="title-inner">
             <strong>风</strong>的<br />
             重构

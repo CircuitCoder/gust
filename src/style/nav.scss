@@ -4,6 +4,7 @@
 $main-transition-length: 0.5s;
 $shrink-transition-length: 0.2s;
 $shift-delay: 0.1s;
+$arrow-move: 10px;
 
 @function square-border($outer, $width, $offset-x: 0, $offset-y: 0) {
   $neg-outer: calc(100% - #{$outer});
@@ -53,39 +54,49 @@ $title-border-width: 40px;
   color: $primary;
   position: relative;
 
-  > strong {
-    font-weight: 900;
-  }
-
-  &::after {
+  &-outer {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+
     user-select: none;
+    pointer-events: all;
 
     clip-path: square-border(0px, $title-border-width);
     transition: clip-path $main-transition-length ease;
     transition-delay: $shift-delay;
 
-    $bg-tile: 60px;
-    $bg-darker: change-color($primary, $alpha: 0.6);
-    $bg-lighter: change-color($primary, $alpha: 0.2);
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
 
-    background: linear-gradient(
-      45deg,
-      $bg-lighter 25%,
-      $bg-darker 25%,
-      $bg-darker 50%,
-      $bg-lighter 50%,
-      $bg-lighter 75%,
-      $bg-darker 75%
-    );
-    background-size: $bg-tile $bg-tile;
+      $bg-tile: 60px;
+      $bg-darker: change-color($primary, $alpha: 0.6);
+      $bg-lighter: change-color($primary, $alpha: 0.2);
 
-    pointer-events: all;
+      background: linear-gradient(
+        45deg,
+        $bg-lighter 25%,
+        $bg-darker 25%,
+        $bg-darker 50%,
+        $bg-lighter 50%,
+        $bg-lighter 75%,
+        $bg-darker 75%
+      );
+      background-size: $bg-tile $bg-tile;
+
+      transition: transform .2s ease;
+      nav.mini:hover & {
+        transform: translateY(-$arrow-move);
+      }
+    }
   }
 
   &-inner {
@@ -97,6 +108,10 @@ $title-border-width: 40px;
       opacity $shrink-transition-length ease;
     transition-delay: $main-transition-length + $shift-delay -
       $shrink-transition-length;
+
+    > strong {
+      font-weight: 900;
+    }
   }
 }
 
@@ -110,7 +125,7 @@ nav.mini {
       transition-delay: 0s;
     }
 
-    &::after {
+    &-outer {
       $outer: (420px - 120px) / 2;
       clip-path: square-border($outer, $title-border-width);
       transition-delay: 0s;
@@ -230,11 +245,9 @@ nav.mini {
 }
 
 .title-tile-meta-alt-arrow {
+  nav.mini:hover & {
+    transform: translateY($arrow-move);
+  }
   transition: transform .2s ease;
 }
 
-nav.mini:hover {
-  .title-tile-meta-alt-arrow {
-    transform: translateY(5px);
-  }
-}

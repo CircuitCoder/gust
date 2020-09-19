@@ -53,6 +53,10 @@ code {
   position: fixed;
 
   &-off {
+    // TODO: use a capture scope event listner on body to filter the events
+    // Then we may have universial scrolling events
+
+    // Right now, scrolling is blocked by the nav
     pointer-events: none;
   }
 }
