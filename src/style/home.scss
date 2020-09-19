@@ -26,6 +26,8 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
   position: relative;
   pointer-events: none;
 
+  overflow-x: hidden;
+
   &-left {
     width: 470px; // TODO: auto calc
   }

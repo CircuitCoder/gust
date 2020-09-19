@@ -28,7 +28,7 @@ const Entry = () => {
   return (
     <TransitionGroup component={null}>
       <CSSTransition key={entry && slug} classNames="entry-fade" timeout={1000}>
-        <Main className="entry" off={!slug}>
+        <Main className="entry" on={slug}>
           <Markdown source={entry} />
         </Main>
       </CSSTransition>

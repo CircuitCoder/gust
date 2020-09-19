@@ -62,6 +62,7 @@ class ListingEntryEntity extends PureComponent {
 
     /**
      * We weakly asserts that math.abs(flipped.x) ===
+     * TODO: use variables exported from SCSS
      *
      * [Icon]        [Gap]
      * (420 - 120) + (60 - 10)
@@ -233,7 +234,7 @@ const Home = () => {
   const slug = entryMatch?.params?.slug ?? null;
 
   return (
-    <Main className="home" off={homeMatch}>
+    <Main className="home" on={homeMatch}>
       <div className="home-left"></div>
 
       <div className="home-right">

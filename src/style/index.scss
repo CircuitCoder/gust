@@ -50,7 +50,7 @@ code {
   top: 0;
   bottom: 0;
   right: 0;
-  position: absolute;
+  position: fixed;
 
   &-off {
     pointer-events: none;
@@ -64,7 +64,7 @@ main {
 
 // Scrollbar
 
-html {
+.main-wrapper {
   overflow: scroll;
 
   scrollbar-width: thin;
@@ -77,6 +77,16 @@ html {
 
   &::-webkit-scrollbar-thumb {
     background: change-color($primary, $alpha: .38);
+
+    &:hover {
+      background: change-color($primary, $alpha: .54);
+    }
+  }
+
+  &-off {
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
   }
 }
 

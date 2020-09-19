@@ -1,11 +1,13 @@
 import React from 'react';
+import clsx from 'clsx';
 
-const Main = ({ off, children, ...rest }) => {
-  let wrapperClass = `main-wrapper`;
-  if (off) wrapperClass += ' main-wrapper-off';
+const Main = ({ on, children, ...rest }) => {
+  const cn = clsx('main-wrapper', {
+    'main-wrapper-off': !on,
+  });
 
   return (
-    <div className={wrapperClass}>
+    <div className={cn}>
       <main {...rest}>
         { children }
       </main>
