@@ -25,7 +25,14 @@ const Entry = () => {
   const match = useRouteMatch('/entry/:slug');
   const slug = match?.params?.slug ?? null;
 
-  useTitle(slug ? `#${capitalize(slug)}` : null);
+  useTitle(
+    {
+      path: '/entry/:slug',
+      exact: true,
+    },
+    match => capitalize(match.params.slug),
+  );
+
   const entry = useEntry(slug);
 
   const dispatch = useDispatch();

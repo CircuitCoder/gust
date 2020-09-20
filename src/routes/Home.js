@@ -183,7 +183,13 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // Set title
-  useTitle('🎐');
+  useTitle(
+    {
+      path: '/',
+      exact: true,
+    },
+    () => '🎐',
+  );
 
   // Load listing on startup
   useEffect(() => {
