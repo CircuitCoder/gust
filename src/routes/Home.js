@@ -233,8 +233,13 @@ const Home = () => {
 
   const slug = entryMatch?.params?.slug ?? null;
 
+  const folded = useSelector(({ folded }) => folded);
+  const cn = clsx('home', {
+    'home-folded': folded,
+  });
+
   return (
-    <Main className="home" on={homeMatch}>
+    <Main className={cn} on={homeMatch}>
       <div className="home-left"></div>
 
       <div className="home-right">

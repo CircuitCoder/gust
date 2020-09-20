@@ -403,3 +403,28 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
     }
   }
 }
+
+// Info fold
+.home-tile {
+  &-meta, &-meta-pinned {
+    transform-origin: 0 0;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  &-inner, &-inner-pinned {
+    transition: transform .2s ease, opacity .2s ease;
+  }
+}
+
+.home-folded .home-entity-pinned {
+  .home-tile {
+    &-meta, &-meta-pinned {
+      transform: scale(.5);
+      opacity: 0.7;
+    }
+    &-inner, &-inner-pinned {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  }
+}

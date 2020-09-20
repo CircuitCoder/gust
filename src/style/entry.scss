@@ -1,4 +1,4 @@
-$left-spacing: 120px + 10px + 40px + 40px;
+$left-spacing: 120px + 10px + 40px + 20px;
 $top-spacing: 40px + 120px + 40px;
 $col-spacing: 200px;
 
@@ -13,18 +13,21 @@ main.entry {
 
   height: calc(100vh - #{80px+$top-spacing}); // 80px will almost certainly avoids the scrollbar on body
 
+  // TODO: figure out why does overflow-y here breaks everything
+  // overflow-y: hidden;
+
   @include font-serif;
 }
 
 main.entry > div {
-  // transform: rotate(-90deg);
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  width: $col-width + $col-spacing;
   margin-right: -$col-spacing;
+  writing-mode: vertical-lr;
 
   > * {
+    writing-mode: horizontal-tb;
+
     margin-right: $col-spacing;
     width: $col-width;
   }
@@ -62,4 +65,20 @@ main.entry > div {
     transform: translateX(30px);
     pointer-events: none;
   }
+}
+
+// Info fold
+.entry .md h1 {
+  position: sticky;
+  left: $left-spacing;
+  margin-top: 20px;
+  font-size: 52px;
+  line-height: 60px;
+  transition: transform .2s ease;
+
+  width: $col-width;
+}
+
+.entry-folded .md h1 {
+  transform: translateY(-125px);
 }

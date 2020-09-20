@@ -94,5 +94,17 @@ main {
   }
 }
 
+// Hitzone detection
+.hitzone {
+  position: absolute;
+  top: 0;
+  height: 10px;
+
+  left: 0;
+  width: 10px;
+
+  pointer-events: none;
+}
+
 @import './home.scss';
 @import './entry.scss';

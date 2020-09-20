@@ -14,7 +14,7 @@ const processor = unified()
     createElement: React.createElement,
     Fragment: ({ children }) => <div className="md">{children}</div>,
     components: {
-      h1: ({ children }) => <h1>{ children }</h1> // TODO: hold an ref?
+      h1: ({ children }) => <h1>{ children }</h1>
     },
   })
   .freeze();

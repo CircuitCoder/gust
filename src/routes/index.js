@@ -6,6 +6,7 @@ import Home from './Home';
 
 const Root = () => (
   <>
+    <div className="hitzone-fixed" />
     <Nav />
     <Home />
     <Entry />

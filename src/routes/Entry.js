@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Markdown from '../comps/Markdown';
 import { useTitle } from '../utils/hooks';
@@ -6,6 +6,9 @@ import { retrieve } from '../utils/networking';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Main from '../comps/Main';
+import { useDispatch, useSelector } from 'react-redux';
+import { foldTitle } from '../store/simple';
+import clsx from 'clsx';
 
 const capitalize = input =>
   `${input.charAt(0).toUpperCase()}${input.slice(1).toLowerCase()}`;
@@ -25,14 +28,41 @@ const Entry = () => {
   useTitle(slug ? `#${capitalize(slug)}` : null);
   const entry = useEntry(slug);
 
+  const dispatch = useDispatch();
+
+  const ob = useMemo(() => {
+    return new IntersectionObserver(entries => {
+      const ent = entries[0];
+      const scrolled = ent.intersectionRatio < 1;
+      dispatch(foldTitle(scrolled));
+    }, {
+      threshold: 1,
+    });
+  }, [dispatch]);
+
+  const hitzone = useCallback(hz => {
+    ob.disconnect();
+    if(!hz) return;
+    ob.observe(hz);
+  }, [ob]);
+
+  const folded = useSelector(({ folded }) => folded);
+  const cn = clsx('entry', {
+    'entry-folded': folded,
+  });
+
   return (
-    <TransitionGroup component={null}>
-      <CSSTransition key={entry && slug} classNames="entry-fade" timeout={1000}>
-        <Main className="entry" on={slug}>
+    <Main className={cn} on={slug} hitzone={hitzone}>
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={entry && slug}
+          classNames="entry-fade"
+          timeout={1000}
+        >
           <Markdown source={entry} />
-        </Main>
-      </CSSTransition>
-    </TransitionGroup>
+        </CSSTransition>
+      </TransitionGroup>
+    </Main>
   );
 };
 
