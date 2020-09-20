@@ -52,4 +52,20 @@
     text-decoration: underline;
     text-decoration-color: $primary;
   }
+
+  &-img {
+    display: block;
+    width: min-content;
+    text-align: center;
+    padding: 15px 15px 5px 15px;
+    background: white;
+    box-shadow: rgba(0,0,0,.3) 0 2px 6px;
+    margin: 0 auto;
+
+    &-alt {
+      font-size: 14px;
+      @include font-sans;
+      color: rgba(0,0,0,.54);
+    }
+  }
 }
