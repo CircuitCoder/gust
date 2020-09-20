@@ -25,7 +25,7 @@ jobs:
         run: cargo build --release --all-features
         working-directory: gust-gen
       - name: Data - build
-        run: gust-gen/target/release/gust-gen ./gust-data/entries ./public/gust_generated
+        run: gust-gen/target/release/gust-gen ./gust-data ./public/gust_generated
       - name: Frontend - dependency
         run: yarn install --frozen-lockfile
       - name: Frontend - build
