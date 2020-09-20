@@ -8,6 +8,7 @@ import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
 import { REV } from '../config';
+import { trans } from '../transition';
 
 const RepoStatus = ({ slug, rev, icon, ...rest }) => (
   <a className="repo-status" href={`https://github.com/${slug}`} data-icon={icon}>
@@ -100,48 +101,20 @@ class ListingEntryEntity extends PureComponent {
      * But if related constants changes in the SCSS, then we will have to split those
      */
 
-    /**
-     * A helper function to do animations.
-     * We used an option object because we would like to keep the duration optional,
-     * but that will be inconsistence with the CSS format (duration delay) if we are to
-     * use ordinary parameters.
-     * 
-     * Also, we are animating custom CSS properties (namely `var`s). This requires a typed
-     * custom property, which is rather new in current browsers (Chrome since 85, FF unsupported).
-     * An JS (CSSOM) version of the Houdini API is already available ever since approx. a year earlier,
-     * so we may want to use that as a fallback.
-     * 
-     * TODO: fallback `@property` to CSSOM
-     */
-    function varTrans(name, from, { delay = 0, duration = 500 } = {}) {
-      inner.animate(
-        [{
-          [name]: from,
-        }, {
-          [name]: 0,
-        }],
-        {
-          duration,
-          delay,
-          easing: 'ease',
-          fill: 'both',
-        },
-      );
-    }
-
     // First, animate vertical displacement
-    varTrans('--home-pin-vert', `${flipped.y}px`);
+    trans(inner, '--home-pin-vert', flipped.y);
 
     const HALF_LOGO_SHRINK = (420 - 120) / 2;
 
-    // TODO: because these two are constants, maybe we can move the transition
+    // NOT-TODO: because these two are constants, maybe we can move the transition
     //   into the CSS file instead?
     //   `xratio` is consistent throughout each INDIVIDUAL transition, so it can be
     //   included as a multiply factor in the calc clause?
     // Then we may be able to share less variables across JS/SCSS
     // But that will also divide up the logic for transform.
-    varTrans('--home-pin-early', `${xratio * (40 + HALF_LOGO_SHRINK)}px`);
-    varTrans('--home-pin-late', `${xratio * HALF_LOGO_SHRINK}px`, { delay: 100 });
+    // Why not todo: shim for firefox
+    trans(inner, '--home-pin-early', xratio * (40 + HALF_LOGO_SHRINK));
+    trans(inner, '--home-pin-late', xratio * HALF_LOGO_SHRINK, { delay: 100 });
   }
 }
 

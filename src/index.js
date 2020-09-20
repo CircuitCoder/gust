@@ -9,7 +9,11 @@ import store from './store';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { init as transInit } from './transition';
+
 import Root from './routes';
+
+transInit();
 
 const App = () => (
   <React.StrictMode>
