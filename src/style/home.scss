@@ -188,7 +188,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
       }
 
       position: relative;
-      overflow: hidden;
+      // overflow: hidden;
 
       /**
        * Right sheet. This class itself is used as an wrapper for the `&-sheet:after`
@@ -398,7 +398,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
       }
 
       // 20px padding, 20px header -> 10px padding
-      transform: translateY(-30px) translateX(-25px);
+      transform: translateY(-30px) translateX(-30px);
       opacity: 0.54;
     }
 
@@ -407,7 +407,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
         opacity: 0;
       }
 
-      transform: translateY(-70px) translateX(-25px);
+      transform: translateY(-70px) translateX(-30px);
       opacity: 0.54;
     }
   }
