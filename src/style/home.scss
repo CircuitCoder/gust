@@ -419,7 +419,7 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
 .home-folded .home-entity-pinned {
   .home-tile {
     &-meta, &-meta-pinned {
-      transform: scale(.5);
+      transform: scale(.6);
       opacity: 0.7;
     }
     &-inner, &-inner-pinned {

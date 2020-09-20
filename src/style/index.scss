@@ -52,6 +52,9 @@ code {
   right: 0;
   position: fixed;
 
+  --full-width: 100vw;
+  --full-height: 100vh;
+
   &-off {
     // TODO: use a capture scope event listner on body to filter the events
     // Then we may have universial scrolling events

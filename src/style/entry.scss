@@ -70,7 +70,7 @@ main.entry > div {
 // Info fold
 .entry .md h1 {
   position: sticky;
-  left: $left-spacing;
+  left: calc(var(--full-width) / 2 - #{$extended-width / 2 - $left-spacing});
   margin-top: 20px;
   font-size: 52px;
   line-height: 60px;
