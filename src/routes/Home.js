@@ -7,6 +7,14 @@ import Main from '../comps/Main';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
+import { REV } from '../config';
+
+const RepoStatus = ({ slug, rev, icon, ...rest }) => (
+  <a className="repo-status" href={`https://github.com/${slug}`} data-icon={icon}>
+    <div className="repo-status-slug">{ slug }</div>
+    <div className="repo-status-rev">{ rev.substr(0, 7) }</div>
+  </a>
+);
 
 class ListingEntryEntity extends PureComponent {
   // Two inner refs is for the two-stage transition
@@ -240,7 +248,11 @@ const Home = () => {
 
   return (
     <Main className={cn} on={homeMatch}>
-      <div className="home-left"></div>
+      <div className="home-left">
+        <div><RepoStatus slug="CircuitCoder/gust" rev={REV.WEB} icon="</>" /></div>
+        <div><RepoStatus slug="CircuitCoder/gust-gen" rev={REV.GEN} icon="()" /></div>
+        <div><RepoStatus slug="CircuitCoder/gust-data" rev={REV.SRC} icon="##" /></div>
+      </div>
 
       <div className="home-right">
         {listing &&

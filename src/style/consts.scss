@@ -5,6 +5,7 @@ $bg-alpha: 0.1;
 $background: change-color($primary, $alpha: $bg-alpha);
 
 $accent: #275c99;
+$accent-background: change-color($accent, $alpha: $bg-alpha);
 
 // Length
 

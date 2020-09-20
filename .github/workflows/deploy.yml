@@ -13,6 +13,8 @@ jobs:
           lfs: true
           submodules: recursive
           fetch-depth: 0
+      - name: Checkout - read hash
+        run: ./.github/read_hash.sh
       - name: Toolchain - rust
         uses: actions-rs/toolchain@v1
         with:

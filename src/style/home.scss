@@ -27,9 +27,18 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
   pointer-events: none;
 
   overflow-x: hidden;
+  padding-left: 470px;
 
   &-left {
     width: 470px; // TODO: auto calc
+    padding-top: 470px;
+
+    position: fixed;
+    left: calc(var(--full-width)/2 - #{$extended-width / 2});
+
+    > div {
+      margin-bottom: 10px;
+    }
   }
 
   &-right {
@@ -427,4 +436,99 @@ $move-dist: 420px - 120px + 60px - 20px; // TODO: use variable logo width / gap 
       opacity: 0;
     }
   }
+}
+
+// Repo status
+.repo-status {
+  display: inline-block;
+  @include font-monospace;
+  height: 48px;
+  background: $accent-background;
+  align-items: flex-end;
+
+  position: relative;
+  padding-left: 48px + 15px;
+  padding-right: 20px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+
+  pointer-events: all;
+  overflow: hidden;
+
+  &::before {
+    content: attr(data-icon);
+    font-size: 12px;
+    line-height: 48px;
+    width: 48px;
+    font-weight: 900;
+    color: rgba(0,0,0,.38);
+    background: $accent-background;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &::after {
+    content: "goto repo;";
+    position: absolute;
+    bottom: 9px;
+    right: 0;
+    left: 48px + 15px;
+
+    font-size: 16px;
+    line-height: 18px;
+
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  &-slug {
+    font-size: 12px;
+    line-height: 12px;
+    color: rgba(0,0,0,.7);
+  }
+
+  &-rev {
+    font-size: 18px;
+    line-height: 18px;
+    color: $accent;
+
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  $root: &;
+  &:hover {
+    #{$root}-rev {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    &::after {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  transform: none;
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+
+  transition: transform .2s ease, clip-path .2s ease;
+}
+
+@for $i from 1 to 10 {
+  :nth-child(#{$i}) > .repo-status {
+    transition-delay: ($i - 1) * 0.1s;
+  }
+}
+
+.main-wrapper-off .repo-status {
+  transform: translateX(-20px);
+  clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
 }
