@@ -109,5 +109,57 @@ main {
   pointer-events: none;
 }
 
+// Warning overlay
+.unfinished-warning {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  transition: opacity .2s ease;
+  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,.1);
+
+  cursor: pointer;
+
+  @media (min-width: 1320px) {
+    & {
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-inner {
+    cursor: default;
+    width: 300px;
+    background: white;
+    box-shadow: rgba(0,0,0,.3) 0 4px 12px;
+  }
+
+  p {
+    margin: 20px 30px 30px 30px;
+  }
+
+  img {
+    width: 300px;
+    height: 300px;
+  }
+
+  a {
+    color: $primary;
+    text-decoration: underline;
+  }
+
+  &-closed {
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+
 @import './home.scss';
 @import './entry.scss';
