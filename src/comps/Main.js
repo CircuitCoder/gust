@@ -26,8 +26,8 @@ const Main = ({ on, children, hitzone, dir = 'y', ...rest }) => {
   );
 
   return (
-    <div className={cn} ref={attach}>
-      <div className="main-wrapper-inner">
+    <div className={cn}>
+      <div className="main-wrapper-inner" ref={attach}>
         {hitzone && <div className="hitzone" ref={hitzone} />}
         <main {...rest}>{children}</main>
       </div>
