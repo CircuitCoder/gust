@@ -8,6 +8,7 @@ import attr from 'remark-attr';
 import remark2rehype from 'remark-rehype';
 import rehype2react from 'rehype-react';
 import { DATA_PATH } from '../config';
+import { Link } from 'react-router-dom';
 
 const processor = unified()
   .use(remark, { commonmark: true })
@@ -36,6 +37,7 @@ const processor = unified()
           </div>
         );
       },
+      a: ({ href, ...rest }) => <Link to={href} {...rest} />
     },
   })
   .freeze();
