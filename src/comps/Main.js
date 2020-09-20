@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 
-const Main = ({ on, children, hitzone, ...rest }) => {
+const Main = ({ on, children, hitzone, dir = 'y', ...rest }) => {
   const cn = clsx('main-wrapper', {
     'main-wrapper-off': !on,
-  });
+  }, `main-wrapper-${dir}`);
 
   const ob = useMemo(
     () =>
@@ -27,8 +27,10 @@ const Main = ({ on, children, hitzone, ...rest }) => {
 
   return (
     <div className={cn} ref={attach}>
-      {hitzone && <div className="hitzone" ref={hitzone} />}
-      <main {...rest}>{children}</main>
+      <div className="main-wrapper-inner">
+        {hitzone && <div className="hitzone" ref={hitzone} />}
+        <main {...rest}>{children}</main>
+      </div>
     </div>
   );
 };

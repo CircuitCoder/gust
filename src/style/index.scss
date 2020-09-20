@@ -71,9 +71,7 @@ main {
 
 // Scrollbar
 
-.main-wrapper {
-  overflow: scroll;
-
+@mixin thin-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: change-color($primary, $alpha: .38) transparent;
 
@@ -89,10 +87,46 @@ main {
       background: change-color($primary, $alpha: .54);
     }
   }
+}
 
+.main-wrapper {
+  @include thin-scrollbar;
+  &-inner {
+    height: 100%;
+    position: relative;
+
+    @include thin-scrollbar;
+  }
+
+  $root: &;
   &-off {
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+    #{$root}-inner {
+      &::-webkit-scrollbar-thumb {
+        display: none;
+      }
+    }
+  }
+
+  &-y {
+    overflow-y: visible;
+    overflow-x: scroll;
+
+    #{$root}-inner {
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+
+  &-x {
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    #{$root}-inner {
+      overflow-x: scroll;
+      overflow-y: hidden;
     }
   }
 }

@@ -220,7 +220,7 @@ const Home = () => {
   });
 
   return (
-    <Main className={cn} on={homeMatch}>
+    <Main className={cn} on={homeMatch} dir="y">
       <div className="home-left">
         <div><RepoStatus slug="CircuitCoder/gust" rev={REV.WEB} icon="</>" /></div>
         <div><RepoStatus slug="CircuitCoder/gust-gen" rev={REV.GEN} icon="()" /></div>

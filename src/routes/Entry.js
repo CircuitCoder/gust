@@ -52,7 +52,7 @@ const Entry = () => {
   });
 
   return (
-    <Main className={cn} on={slug} hitzone={hitzone}>
+    <Main className={cn} on={slug} hitzone={hitzone} dir="x">
       <TransitionGroup component={null}>
         <CSSTransition
           key={entry && slug}
