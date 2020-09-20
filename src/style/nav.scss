@@ -92,7 +92,7 @@ $title-border-width: 40px;
       );
       background-size: $bg-tile $bg-tile;
 
-      transition: transform .2s ease;
+      transition: transform 0.2s ease;
       nav.mini:hover & {
         transform: translateY(-$arrow-move);
       }
@@ -248,6 +248,5 @@ nav.mini {
   nav.mini:hover & {
     transform: translateY($arrow-move);
   }
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
-

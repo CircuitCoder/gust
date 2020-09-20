@@ -38,20 +38,26 @@ const Entry = () => {
   const dispatch = useDispatch();
 
   const ob = useMemo(() => {
-    return new IntersectionObserver(entries => {
-      const ent = entries[0];
-      const scrolled = ent.intersectionRatio < 1;
-      dispatch(foldTitle(scrolled));
-    }, {
-      threshold: 1,
-    });
+    return new IntersectionObserver(
+      entries => {
+        const ent = entries[0];
+        const scrolled = ent.intersectionRatio < 1;
+        dispatch(foldTitle(scrolled));
+      },
+      {
+        threshold: 1,
+      },
+    );
   }, [dispatch]);
 
-  const hitzone = useCallback(hz => {
-    ob.disconnect();
-    if(!hz) return;
-    ob.observe(hz);
-  }, [ob]);
+  const hitzone = useCallback(
+    hz => {
+      ob.disconnect();
+      if (!hz) return;
+      ob.observe(hz);
+    },
+    [ob],
+  );
 
   const folded = useSelector(({ folded }) => folded);
   const cn = clsx('entry', {

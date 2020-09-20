@@ -11,9 +11,13 @@ import { REV } from '../config';
 import { trans } from '../transition';
 
 const RepoStatus = ({ slug, rev, icon, ...rest }) => (
-  <a className="repo-status" href={`https://github.com/${slug}`} data-icon={icon}>
-    <div className="repo-status-slug">{ slug }</div>
-    <div className="repo-status-rev">{ rev.substr(0, 7) }</div>
+  <a
+    className="repo-status"
+    href={`https://github.com/${slug}`}
+    data-icon={icon}
+  >
+    <div className="repo-status-slug">{slug}</div>
+    <div className="repo-status-rev">{rev.substr(0, 7)}</div>
   </a>
 );
 
@@ -149,8 +153,7 @@ const ListingEntry = ({ entry, current, ...rest }) => {
                 </div>
               </div>
 
-              <div className="home-tile-inner-sheet">
-              </div>
+              <div className="home-tile-inner-sheet"></div>
             </div>
           </div>
 
@@ -228,9 +231,15 @@ const Home = () => {
   return (
     <Main className={cn} on={homeMatch} dir="y">
       <div className="home-left">
-        <div><RepoStatus slug="CircuitCoder/gust" rev={REV.WEB} icon="</>" /></div>
-        <div><RepoStatus slug="CircuitCoder/gust-gen" rev={REV.GEN} icon="()" /></div>
-        <div><RepoStatus slug="CircuitCoder/gust-data" rev={REV.SRC} icon="##" /></div>
+        <div>
+          <RepoStatus slug="CircuitCoder/gust" rev={REV.WEB} icon="</>" />
+        </div>
+        <div>
+          <RepoStatus slug="CircuitCoder/gust-gen" rev={REV.GEN} icon="()" />
+        </div>
+        <div>
+          <RepoStatus slug="CircuitCoder/gust-data" rev={REV.SRC} icon="##" />
+        </div>
       </div>
 
       <div className="home-right">

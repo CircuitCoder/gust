@@ -36,7 +36,8 @@ body {
   background: $background;
 
   // Load animation
-  transition: filter .5s ease-out, transform .5s ease-out, opacity .5s ease-out;
+  transition: filter 0.5s ease-out, transform 0.5s ease-out,
+    opacity 0.5s ease-out;
 }
 
 body.loaded {
@@ -84,7 +85,7 @@ main {
 
 @mixin thin-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: change-color($primary, $alpha: .38) transparent;
+  scrollbar-color: change-color($primary, $alpha: 0.38) transparent;
 
   &::-webkit-scrollbar {
     height: 10px;
@@ -92,10 +93,10 @@ main {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: change-color($primary, $alpha: .38);
+    background: change-color($primary, $alpha: 0.38);
 
     &:hover {
-      background: change-color($primary, $alpha: .54);
+      background: change-color($primary, $alpha: 0.54);
     }
   }
 }
@@ -162,9 +163,9 @@ main {
   right: 0;
   top: 0;
   z-index: 1000;
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
   backdrop-filter: blur(4px);
-  background: rgba(0,0,0,.1);
+  background: rgba(0, 0, 0, 0.1);
 
   cursor: pointer;
 
@@ -183,7 +184,7 @@ main {
     cursor: default;
     width: 300px;
     background: white;
-    box-shadow: rgba(0,0,0,.3) 0 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 4px 12px;
   }
 
   p {

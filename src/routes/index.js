@@ -29,9 +29,11 @@ const Root = () => {
         <div className="unfinished-warning-inner" onClick={blocker}>
           <img src={warnImg} alt="地铁 老人 手机" />
           <p>
-            由于喵喵摸鱼，没有写响应式，因此推荐在宽度 &gt; 1320px 的窗口或屏幕上查看。
-
-            具体进度可以查看 <a href="https://github.com/CircuitCoder/gust/issues/1">CircuitCoder/gust#1</a>
+            由于喵喵摸鱼，没有写响应式，因此推荐在宽度 &gt; 1320px
+            的窗口或屏幕上查看。 具体进度可以查看{' '}
+            <a href="https://github.com/CircuitCoder/gust/issues/1">
+              CircuitCoder/gust#1
+            </a>
           </p>
         </div>
       </div>
