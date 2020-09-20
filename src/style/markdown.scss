@@ -46,4 +46,10 @@
     padding: 20px;
     border-top: $primary 5px solid;
   }
+
+  a {
+    color: $primary;
+    text-decoration: underline;
+    text-decoration-color: $primary;
+  }
 }
