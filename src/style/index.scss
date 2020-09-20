@@ -22,6 +22,8 @@ body {
   // CSS reset
   margin: 0;
   padding: 0 40px;
+  height: 100vh;
+  width: 100vw;
   box-sizing: border-box;
 
   // Default font settings
@@ -32,6 +34,15 @@ body {
 
   // Real styling starts here
   background: $background;
+
+  // Load animation
+  transition: filter .5s ease-out, transform .5s ease-out, opacity .5s ease-out;
+}
+
+body.loaded {
+  filter: none;
+  opacity: 1;
+  transform: none;
 }
 
 code {
