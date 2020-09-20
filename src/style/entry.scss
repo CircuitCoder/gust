@@ -11,7 +11,7 @@ main.entry {
   padding-left: $left-spacing;
   padding-right: $left-spacing;
 
-  height: calc(100vh - #{80px+$top-spacing}); // 80px will almost certainly avoids the scrollbar on body
+  height: calc(var(--full-height) - #{80px+$top-spacing});
 
   // TODO: figure out why does overflow-y here breaks everything
   // overflow-y: hidden;
