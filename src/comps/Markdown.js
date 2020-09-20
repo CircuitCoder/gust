@@ -37,7 +37,19 @@ const processor = unified()
           </div>
         );
       },
-      a: ({ href, ...rest }) => <Link to={href} {...rest} />
+      a: ({ href, children, ...rest }) => {
+        if (href.match(/^[a-zA-Z0-9+.-]+:/) || href.startsWith('//'))
+          return (
+            <a href={href} {...rest}>
+              {children}
+            </a>
+          );
+        return (
+          <Link to={href} {...rest}>
+            {children}
+          </Link>
+        );
+      },
     },
   })
   .freeze();
