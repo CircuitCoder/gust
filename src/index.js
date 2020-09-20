@@ -8,10 +8,20 @@ import 'web-animations-js';
 import store from './store';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import { init as transInit } from './transition';
 
 import Root from './routes';
+
+if (process.env.REACT_APP_GA_ID) {
+  ReactGA.initialize(process.env.REACT_APP_GA_ID, {
+    gaOptions: {
+      siteSpeedSampleRate: 100,
+    },
+  });
+}
+ReactGA.pageview(window.location.pathname);
 
 transInit();
 

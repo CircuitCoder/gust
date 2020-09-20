@@ -1,11 +1,14 @@
 import clsx from 'clsx';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Nav from '../comps/Nav';
 
 import Entry from './Entry';
 import Home from './Home';
 
 import warnImg from '../assets/small_screen.gif';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
+import ReactGA from 'react-ga';
 
 const Root = () => {
   const [warningClosed, setWarningClosed] = useState(
@@ -21,6 +24,15 @@ const Root = () => {
   const blocker = useCallback(e => {
     e.stopPropagation();
   }, []);
+
+  const history = useHistory();
+  useEffect(
+    () =>
+      history.listen(loc => {
+        ReactGA.pageview(loc.pathname);
+      }),
+    [history],
+  );
 
   return (
     <>

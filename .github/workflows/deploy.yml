@@ -32,6 +32,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Frontend - build
         run: yarn build
+        env:
+          REACT_APP_GA_ID: ${{ secrets.GA_ID }}
       - name: Frontend - upload
         uses: actions/upload-artifact@v2
         with:
